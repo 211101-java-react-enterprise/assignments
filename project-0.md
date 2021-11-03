@@ -66,7 +66,7 @@ All project concepts must display the following domain-independent features/requ
 - [ ] Documentation (all classes and methods have basic documentation)
 - [ ] Database is 3rd Normal Form Compliant
 - [ ] Referential integrity (e.g. if a class is removed from the catalog, no students should be registered for it)
-- [ ] Logging messages and exceptions to a file using a Java logging framework (e.g. Log4J2, SLF4J, etc.)
+- [ ] Logging messages and exceptions to a file using a custom logger
 - [ ] Generation of basic design documents (e.g. relational diagram, class diagram, flows, etc.)
 
 
