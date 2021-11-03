@@ -2,7 +2,7 @@
 For Project 0, you will be building a console-based application that will be presented on Wednesday, November 17th, 2021. For this application you may choose one of the following concepts: 
 - a banking application 
 - course registration application
-- any other trainer-approved idea that is similar in functionality to the above project ideas (explicit trainer approval required this)
+- any other trainer-approved idea that is similar in functionality to the above project ideas (explicit trainer approval required for this)
 
 ## Banking Application Details
 
@@ -46,7 +46,7 @@ As a student, I can:
 You are welcome to come up with your own project concept if you would like. The basic requirements of the application are as follows:
 - Persist data into a relational database
 - Allow users to interface (via the console) with an application that allows for them to create, read, update, and delete that persisted data
-- Complies with the requirement minimum features (specified below)
+- Complies with the minimum features (specified below)
 - Minimum number of user stories: 7
 
 Send your project concept descriptions to your trainer via Slack and await concept approval. Additionally, please specify the following when writing up your pitch:
