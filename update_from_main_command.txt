@@ -1,0 +1,5 @@
+if on my branch,
+	git pull origin main
+
+//the above command copies what's on the main branch in the assignments repo to my local branch.
+//for it to work correctly, I must first be on my branch
