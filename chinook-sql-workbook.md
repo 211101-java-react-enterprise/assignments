@@ -9,7 +9,7 @@ In this section you will begin the process of working with the Chinook database
 Task – Set up the Chinook DB by executing the script found [here](https://raw.githubusercontent.com/lerocha/chinook-database/master/ChinookDatabase/DataSources/Chinook_PostgreSql.sql)
 
 ### 2.0 SQL Queries
-In this section you will be performing various queries against the Oracle Chinook database.
+In this section you will be performing various queries against the PostgreSQL Chinook database.
 
 ### 2.1 SELECT
 Task – Select all records from the Employee table. 
