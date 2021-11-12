@@ -33,6 +33,6 @@ public abstract class Screen {
         return route;
     }
 
-    public abstract void render() throws Exception;
+    public abstract void render() throws Exception;//throws exception makes it so you have to override this
 
 }
