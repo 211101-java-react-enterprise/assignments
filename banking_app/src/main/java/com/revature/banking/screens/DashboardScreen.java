@@ -45,12 +45,15 @@ public class DashboardScreen extends Screen {
                     break;
                 case "2":
                     System.out.println("Deposit funds selected");
+                    router.navigate("/deposit");
                     break;
                 case "3":
                     System.out.println("Make withdrawal selected");
+                    router.navigate("/withdrawal");
                     break;
                 case "4":
                     System.out.println("View account balance selected");
+                    router.navigate("/balance");
                     break;
                 case "5":
                     userService.logout();

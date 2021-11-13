@@ -8,7 +8,7 @@ public class DepositScreen extends Screen{
     private final UserService userService;
 
     public DepositScreen(BufferedReader consolReader, ScreenRouter router, UserService userService){
-        super("deposit", "/deposit", consolReader, router);
+        super("DepositScreen", "/deposit", consolReader, router);
         this.userService = userService;
     }
 
