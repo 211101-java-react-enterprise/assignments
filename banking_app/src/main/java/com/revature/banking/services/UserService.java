@@ -94,6 +94,18 @@ public class UserService {
         return true;
     }
 
+    public boolean withdrawal(String amount){
+        double balance = sessionUser.getBalance();
+        double subtractedAmount = Double.parseDouble(amount);
+        if((balance-subtractedAmount) >= 0){
+            sessionUser.setBalance(balance - subtractedAmount);
+            userDAO.update(sessionUser);
+            return true;
+        }
+        else return false;
+
+    }
+
     public double viewBalance(){
         if(sessionUser == null){
             //query balance from aws

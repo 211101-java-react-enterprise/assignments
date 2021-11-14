@@ -17,5 +17,12 @@ public class WithdrawalScreen extends Screen {
     public void render() throws Exception {
         System.out.println("How much money would you like to Withdrawal?");
         String response = consoleReader.readLine();
+        if(userService.withdrawal(response)){
+            System.out.println("Success. Enjoy your money");
+        }
+        else{
+            System.out.println("Overdraft. Deposit more funds");
+        }
+
     }
 }

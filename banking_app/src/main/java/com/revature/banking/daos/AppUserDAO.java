@@ -139,11 +139,16 @@ public class AppUserDAO implements CrudDAO<AppUser> {
 
             //sql here
             String sql = "update app_users " +
-                    "set balance = ?" +
+                    "set first_name = ?, last_name = ?, email = ?, username = ?, password = ?, balance = ? " +
                     "where id = ?;";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, Double.toString(updatedObj.getBalance()));
-            pstmt.setString(2, updatedObj.getId());
+            pstmt.setString(1, updatedObj.getFirstName());
+            pstmt.setString(2, updatedObj.getLastName());
+            pstmt.setString(3, updatedObj.getEmail());
+            pstmt.setString(4, updatedObj.getUsername());
+            pstmt.setString(5, updatedObj.getPassword());
+            pstmt.setString(6, Double.toString(updatedObj.getBalance()));
+            pstmt.setString(7, updatedObj.getId());
 
             pstmt.executeUpdate();
             return true;
