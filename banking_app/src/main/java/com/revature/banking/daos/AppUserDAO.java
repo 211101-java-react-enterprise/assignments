@@ -28,6 +28,7 @@ public class AppUserDAO implements CrudDAO<AppUser> {
                 user.setEmail(rs.getString("email"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
+                user.setBalance(rs.getDouble("balance"));
                 return user;
             }
 
@@ -55,6 +56,7 @@ public class AppUserDAO implements CrudDAO<AppUser> {
                 user.setEmail(rs.getString("email"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
+                user.setBalance(rs.getDouble("balance"));
                 return user;
             }
 
@@ -84,6 +86,7 @@ public class AppUserDAO implements CrudDAO<AppUser> {
                 user.setEmail(rs.getString("email"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
+                user.setBalance(rs.getDouble("balance"));
                 return user;
             }
 
@@ -102,7 +105,7 @@ public class AppUserDAO implements CrudDAO<AppUser> {
 
             newUser.setId(UUID.randomUUID().toString());
 
-            String sql = "insert into app_users (id, first_name, last_name, email, username, password) values (?, ?, ?, ?, ?, ?)";
+            String sql = "insert into app_users (id, first_name, last_name, email, username, password, balance) values (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, newUser.getId());
             pstmt.setString(2, newUser.getFirstName());
@@ -110,6 +113,7 @@ public class AppUserDAO implements CrudDAO<AppUser> {
             pstmt.setString(4, newUser.getEmail());
             pstmt.setString(5, newUser.getUsername());
             pstmt.setString(6, newUser.getPassword());
+            pstmt.setDouble(7, newUser.getBalance());
 
             int rowsInserted = pstmt.executeUpdate();
 
@@ -127,19 +131,60 @@ public class AppUserDAO implements CrudDAO<AppUser> {
 
     }
 
-    @Override
-    public List<AppUser> findAll() {
-        return null;
+    @Override//call update when adding information to existing user. Ex) deposit
+    public boolean update(AppUser updatedObj) {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+            //logic here
+
+            //sql here
+            String sql = "update app_users " +
+                    "set balance = ?" +
+                    "where id = ?;";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, Double.toString(updatedObj.getBalance()));
+            pstmt.setString(2, updatedObj.getId());
+
+            pstmt.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            // TODO log this and throw our own custom exception to be caught in the service layer
+            e.printStackTrace();
+            return false;
+
+        }
     }
 
     @Override
     public AppUser findById(String id) {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+            String sql = "select * from app_users where id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                AppUser user = new AppUser();
+                user.setId(rs.getString("id"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setBalance(rs.getDouble("id"));
+                return user;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
-    public boolean update(AppUser updatedObj) {
-        return false;
+    public List<AppUser> findAll() {
+        return null;
     }
 
     @Override

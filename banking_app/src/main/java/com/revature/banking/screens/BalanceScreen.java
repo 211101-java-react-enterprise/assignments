@@ -16,6 +16,6 @@ public class BalanceScreen extends Screen{
 
     @Override
     public void render() throws Exception {
-        System.out.println("You have __ accounts. Here are your balances");
+        System.out.println("Your current balance is $"+userService.viewBalance());
     }
 }

@@ -86,4 +86,20 @@ public class UserService {
         return user.getPassword() != null && !user.getPassword().trim().equals("");
     }
 
+    public boolean deposit(String amount){
+        double balance = sessionUser.getBalance();
+        double addedAmount = Double.parseDouble(amount);
+        sessionUser.setBalance(balance + addedAmount);
+        userDAO.update(sessionUser);
+        return true;
+    }
+
+    public double viewBalance(){
+        if(sessionUser == null){
+            //query balance from aws
+            sessionUser = userDAO.findById(sessionUser.getId());
+        }
+        return sessionUser.getBalance();
+    }
+
 }

@@ -30,6 +30,7 @@ public class AppUser extends Object {
     private String email;
     private String username;
     private String password;
+    private double balance;
 
     public AppUser(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
@@ -43,9 +44,22 @@ public class AppUser extends Object {
         this(firstName, lastName, email, username, password);
         this.id = id;
     }
+    public AppUser(String id, String firstName, String lastName, String email, String username, String password, double balance) {
+        this(firstName, lastName, email, username, password);
+        this.id = id;
+        this.balance = balance;
+    }
 
     public AppUser() {
         super();
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public String getId() {
