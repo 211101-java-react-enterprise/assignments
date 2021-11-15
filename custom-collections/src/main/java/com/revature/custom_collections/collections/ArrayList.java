@@ -1,5 +1,7 @@
 package com.revature.custom_collections.collections;
 
+import java.util.Arrays;
+
 /**
  * Resizable-array implementation of the List interface. Permits all element values,
  * including null. Each ArrayList instance has a capacity. The capacity is the size
@@ -10,14 +12,15 @@ package com.revature.custom_collections.collections;
  * @param <T> the type of elements maintained by this list
  */
 public class ArrayList<T> implements List<T> {
-        private int arraySize;
-        private int currentIndex;
-        public Object[] myList;
 
-        ArrayList(int initialSize) {
+        private static final int initialSize = 10;
+        private int indexSize = 0;
+        private int Size = 0;
+        public Object[] myList = {};
+
+        public ArrayList() {
             this.myList = new Object[initialSize];
-            arraySize = initialSize;
-            currentIndex = 0;
+
 
     }
 
@@ -33,15 +36,13 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T element) {
-
-        try {myList[currentIndex] = element;
-        currentIndex++;
-
-        return true;
-        } catch(Exception e) {
-            return false;
+        if (Size == myList.length) {
+            //increase capacity of myList
+            int increasedSize = myList.length * 2;
+            myList = Arrays.copyOf(myList, increasedSize);
         }
-
+        myList[Size++] = element;
+            return true;
     }
 
     /**
@@ -66,7 +67,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean isEmpty() {
 
-        return false;
+        return indexSize == 0;
     }
 
     /**
@@ -81,7 +82,17 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean remove(T element) {
 
-        return false;
+        try {int index = indexOf(element);
+        System.out.println(index);
+        remove(index);
+
+        return true;
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("Not found");
+
+            return false;
+        }
+
     }
 
     /**
@@ -92,7 +103,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public int size() {
 
-        return 0;
+        return Size;
     }
 
     /**
@@ -104,8 +115,10 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-
-        return (T) ArrayList.this.myList[currentIndex];
+    if (index < 0 || index >= Size) {
+        throw new IndexOutOfBoundsException("Index: " + indexSize + ", Size " + indexSize);
+    }
+        return (T) myList[index];
     }
 
     /**
@@ -146,7 +159,21 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T remove(int index) {
-        return null;
+        try {if (index < 0 || index >= Size) {
+        throw new IndexOutOfBoundsException();
+    }
+
+    T removedItem = (T) myList[index];
+    for (int i = index; i < Size - 1; i++) {
+        myList[i] = myList[i + 1];
+    }
+        Size--;
+
+        return removedItem;
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("Not found");
+            return null;
+        }
     }
 
     /**
@@ -161,8 +188,12 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int indexOf(T element) {
-
-        return 0;
+        for (int i = 0; i < Size; i++) {
+            if (element.equals(myList[i])) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -177,7 +208,14 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int lastIndexOf(T element) {
-        return 0;
+        System.out.println("Debug");
+        for (int i = Size; i >= 0; i--) {
+            if (element.equals(myList[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
     }
 
-}
+
