@@ -167,7 +167,58 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void add(int index, T element) {
+        //Local nodes
+        Node<T> prevNode = null;
+        Node<T> currentNode = head;
+        Node<T> insertingElement = new Node<>(element);
+        boolean insertedintolist = false; //flag for insertion incrementing
 
+        //Check index is not out of range. If so throw exception
+        if (index < 0 || index > size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        //Index valid
+        for (int i = 0; i <= index; i++) {
+            //inserting into an empty list
+            if (index == 0 && size == 0) {
+                head = tail = insertingElement;
+                insertedintolist = true;
+            }
+            //inserting into a list with just a head
+            else if (size == 1) {
+                //Make new head
+                if (index == 0) {
+                    insertingElement.nextNode = head;
+                    head = insertingElement;
+                    //Tail stays on previous head;
+                }
+                //make new tail
+                if (index != 0) {
+                    head.nextNode = insertingElement;
+                    tail = insertingElement;
+                }
+                insertedintolist = true;
+            } else if (i < index) {
+                //inserting a new tail
+                if (currentNode == tail && prevNode != null) {
+                    tail = insertingElement;   //PN ----> CN -----> IE
+                    currentNode.nextNode = tail;
+                }
+                //otherwise iterate
+
+            } else {//I is at the index, but has not reached the tail
+                prevNode.nextNode = insertingElement;   // PN --> IE ---> CN
+                insertingElement.nextNode = currentNode;
+                insertedintolist = true;
+            }
+            //Increment if none of test cases
+
+            if (insertedintolist == false) {
+                prevNode = currentNode;
+                currentNode = currentNode.nextNode;
+            }
+        }
+        size++; //TODO IMPLEMENTED
     }
 
     /**
@@ -180,7 +231,61 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T set(int index, T element) {
-        return null;
+        //Local nodes
+        Node<T> prevNode = null;
+        Node<T> currentNode = head; //Can return this I think.
+        Node<T> insertingElement = new Node<>(element);
+        Node<T> returnElement = new Node<>(element);
+        boolean insertedintolist = false; //flag for insertion incrementing
+
+        if (index < 0 || index > size() || size() == 0){
+            System.out.println("Selection outside of bounds of list or list is Empty");
+            return null;
+        }
+
+        //Change Head
+        if (index == 0)
+        {
+            if(head == tail) {
+                //Change the head only element
+                returnElement = head; //Get the value to return
+                head = insertingElement; //Set new head
+                tail = insertingElement; //Sanity check
+
+            } else {
+                insertingElement.nextNode = head.nextNode; //Link to list
+                returnElement = head; // Copy the data
+                head = insertingElement; //New head
+
+            }
+        }
+
+        //Find position
+        for(int i = 0; i <= index; i++)
+        {
+            if (currentNode != tail)
+            {                                  /// H     V1     T
+                //Increment while we go
+                prevNode = currentNode;
+                currentNode = currentNode.nextNode;
+            }
+            if (i == index && index != 0)
+            {
+                if (currentNode == tail)
+                {
+                    returnElement = tail;
+                    prevNode.nextNode = insertingElement;
+                    tail = insertingElement;
+                } else {
+                    returnElement = currentNode;
+                    prevNode.nextNode = insertingElement;
+                    insertingElement.nextNode = currentNode.nextNode;
+                }
+            }
+        }
+
+
+        return returnElement.data;
     }
 
     /**
