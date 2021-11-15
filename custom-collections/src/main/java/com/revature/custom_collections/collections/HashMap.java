@@ -13,11 +13,12 @@ import java.util.Objects;
  */
 public class HashMap<K, V> implements Map<K, V> {
 
-    private int size;
+    private int size = 0;
     private final int DEFAULT_CAPACITY = 16;
 
     @SuppressWarnings("unchecked")
     private Entry<K, V>[] entries = new Entry[DEFAULT_CAPACITY];
+
 
     /**
      * Returns the value to which the specified key is mapped, or null if this
@@ -28,8 +29,20 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public V get(K key) {
-        return null;
+        K thisKey;
+        V thisValue = null;
+        if(key == null) {
+            return null;
+        }
+        for(int i = 0; i < size; i++) {
+            thisKey = entries[i].getKey();
+            if(thisKey.equals(key)) {
+                thisValue = entries[i].getValue();
+            }
+        }
+        return thisValue;
     }
+
 
     /**
      * Associates the specified value with the specified key in this map. If the
@@ -41,8 +54,48 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public V put(K key, V value) {
-        return null;
+        //If exists, return old value, just put it in... return null
+        V thisValue = null;
+        K thisKey;
+        Node<K,V> newEntry;
+        if(size == 0) {
+            newEntry = new Node<>(hash(key), key, value, null);
+            entries[0] = newEntry;
+        }
+        for(int i = 0; i < size; i++) {
+            thisKey = entries[i].getKey();
+            //System.out.printf("thisKey: %s, givenKey: %s\n", thisKey, key);
+            if(thisKey == null) {
+                if (key == null) {
+
+                    V oldValue = entries[i].getValue();
+                    newEntry = new Node<>(hash(key), key, value, null);
+                    entries[i + 1] = newEntry;
+                    size++;
+                    return oldValue;
+                } else {
+                    continue;
+                }
+            }
+            if(thisKey.equals(key)) {
+                thisValue = entries[i].setValue(value);
+                return thisValue;
+            } else if(i == size - 1) {
+                newEntry = new Node<>(hash(key), key, value, null);
+                try {
+                    entries[i + 1] = newEntry;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Entry<K, V>[] newEntries = new Entry[size*2];
+                    System.arraycopy(entries, 0, newEntries, 0, size);
+                    newEntries[i+1] = newEntry;
+                    entries = newEntries;
+                }
+            }
+        }
+        size++;
+        return thisValue;
     }
+
 
     /**
      * Removes the mapping for the specified key from this map if present.
@@ -52,6 +105,15 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public V remove(K key) {
+        V thisValue;
+        for(int i = 0; i < size; i++) {
+            if(entries[i].getKey().equals(key)) {
+                thisValue = entries[i].getValue();
+                entries[i] = null;
+                size--;
+                return thisValue;
+            }
+        }
         return null;
     }
 
@@ -63,6 +125,14 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean containsKey(K key) {
+        if(size == 0) {
+            return false;
+        }
+        for(int i = 0; i < size; i++) {
+            if(entries[i].getKey().equals(key) && entries[i] != null) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -74,6 +144,11 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean containsValue(V value) {
+        for(int i = 0; i < size; i++) {
+            if(entries[i].getValue() == value) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -84,7 +159,7 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -94,7 +169,7 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
