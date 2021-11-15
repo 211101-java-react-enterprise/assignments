@@ -351,8 +351,15 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public void addFirst(T element) {
         if (element == null) {
+            // When the element is null, will throw an exception.
             throw new NullPointerException("Provided element is null!");
         }
+        //Creates new node and assigns to head, and points to previos head.
+        Node<T> newdata = null;
+        newdata.data = element;
+        newdata.nextNode = head;
+        head = newdata;
+        size++;
 
         
     }
