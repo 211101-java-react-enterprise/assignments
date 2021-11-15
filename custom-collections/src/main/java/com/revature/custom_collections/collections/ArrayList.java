@@ -37,7 +37,7 @@ public class ArrayList<T> implements List<T> {
     public boolean grow(){
         maxCapacity += 10;
 
-        System.out.println("\nDEMO: Maximum Capacity Increased");
+        System.out.println("\nDEMO: Maximum Capacity Increased\n");
 
         Object[] result = new Object[maxCapacity];
 
@@ -53,7 +53,7 @@ public class ArrayList<T> implements List<T> {
         for(int i=0; i<size; i++){
             result = result + elements[i] + " ";
         }
-        result += " Size: " + size;
+        result += " Size: " + size + "\n";
         System.out.println(result);
     }
 

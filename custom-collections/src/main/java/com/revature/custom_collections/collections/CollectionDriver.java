@@ -6,71 +6,37 @@ public class CollectionDriver {
         // TODO: Provide a demonstration of your implemented data structures here.
         ArrayList arr = new ArrayList();
 
-        System.out.println(arr.isEmpty());
+        System.out.println("Is the array empty: " + arr.isEmpty());
 
-        System.out.println(arr.get(0));
+        System.out.println("\nFirst element of the array: " + arr.get(0));
 
         arr.add("1");
-        System.out.println(arr.get(0));
 
+        System.out.println("\nIs the array empty: " + arr.isEmpty());
 
+        System.out.println("\nFirst element of the array: " + arr.get(0));
 
-        arr.add("2");
-        System.out.println(arr.get(1));
-
-        arr.add("3");
-        arr.add("4");
-        arr.add("5");
-        arr.add("6");
-        arr.add("7");
-        arr.add("8");
-        arr.add("9");
-        arr.add("10");
-
-        System.out.println(arr.get(9));
+        for(int i = 2; i <= 10; i++){
+            arr.add(String.valueOf(i));
+        }
+        arr.displayArray();
 
         arr.add("11");
 
-        System.out.println(arr.get(10));
+        arr.displayArray();
 
-        arr.add("12");
-        arr.add("4");
+        System.out.println("Does the ArrayList contain 5: " + arr.contains("5"));
 
-        System.out.println(arr.get(12));
+        System.out.println("Does the ArrayList contain 20: " + arr.contains("20"));
 
-        System.out.println(arr);
+        arr.remove("3");
 
         arr.displayArray();
 
-        System.out.println(arr.contains("7"));
-        System.out.println(arr.contains("20"));
-
-        System.out.println(arr.isEmpty());
-
-        System.out.println(arr.remove("3"));
+        arr.add(2, "3");
 
         arr.displayArray();
 
-        System.out.println(arr.get(5));
 
-        arr.add(6, "42");
-
-        arr.displayArray();
-
-        arr.set(0, "Fish");
-
-        arr.displayArray();
-
-        arr.set(0, 3.2);
-
-        arr.displayArray();
-
-        arr.remove(6);
-
-        arr.displayArray();
-
-        System.out.println(arr.indexOf("4"));
-
-        System.out.println(arr.lastIndexOf("4"));
     }
 }
