@@ -10,6 +10,20 @@ package com.revature.custom_collections.collections;
  * @param <T> the type of elements maintained by this list
  */
 public class ArrayList<T> implements List<T> {
+        private int arraySize;
+        private int currentIndex;
+        public Object[] myList;
+
+        ArrayList(int initialSize) {
+            this.myList = new Object[initialSize];
+            arraySize = initialSize;
+            currentIndex = 0;
+
+    }
+
+
+
+
 
     /**
      * Appends the specified element to the end of this list.
@@ -19,7 +33,15 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T element) {
-        return false;
+
+        try {myList[currentIndex] = element;
+        currentIndex++;
+
+        return true;
+        } catch(Exception e) {
+            return false;
+        }
+
     }
 
     /**
@@ -32,6 +54,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean contains(T element) {
+
         return false;
     }
 
@@ -42,6 +65,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean isEmpty() {
+
         return false;
     }
 
@@ -56,6 +80,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean remove(T element) {
+
         return false;
     }
 
@@ -66,6 +91,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int size() {
+
         return 0;
     }
 
@@ -78,7 +104,8 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-        return null;
+
+        return (T) ArrayList.this.myList[currentIndex];
     }
 
     /**
@@ -134,6 +161,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int indexOf(T element) {
+
         return 0;
     }
 
