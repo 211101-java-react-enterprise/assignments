@@ -481,7 +481,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T poll() {
-        return null;
+        return pollFirst();
     }
 
     /**
@@ -494,7 +494,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peek() {
-        return null;
+        return peekFirst();
     }
 
     @Override
