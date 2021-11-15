@@ -28,6 +28,11 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public V get(K key) {
+        for(Entry<K, V> node:entries){
+            if(node.getKey().equals(key)){
+                return node.getValue();
+            }
+        }
         return null;
     }
 
