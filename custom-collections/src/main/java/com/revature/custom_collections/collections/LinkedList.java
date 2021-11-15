@@ -156,6 +156,15 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         return null;
     }
 
+    /**
+     * Inserts the specified element at the specified position in this list. Shifts
+     * the element currently at that position (if any) and any subsequent elements
+     * to the right (adds one to their indices).
+     *
+     * @param index index at which the specified element is to be inserted
+     * @param element element to be inserted
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
+     */
     @Override
     public void add(int index, T element) {
 
