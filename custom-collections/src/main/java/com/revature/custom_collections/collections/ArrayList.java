@@ -11,6 +11,10 @@ package com.revature.custom_collections.collections;
  */
 public class ArrayList<T> implements List<T> {
 
+    private int size = 0;
+    private static final int DEFAULT = 10;
+    private Object elements[] = new Object[DEFAULT];
+
     /**
      * Appends the specified element to the end of this list.
      *
@@ -19,7 +23,15 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T element) {
-        return false;
+        if (size%10 == 0) {
+            int newSize =
+        }
+
+        try {
+
+            elements[size] = element;
+            size++;
+        }
     }
 
     /**
@@ -30,6 +42,8 @@ public class ArrayList<T> implements List<T> {
      * @param element element whose presence in this list is to be tested
      * @return true if this list contains the specified element
      */
+
+
     @Override
     public boolean contains(T element) {
         return false;
@@ -78,7 +92,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-        return null;
+        return elements[index];
     }
 
     /**
