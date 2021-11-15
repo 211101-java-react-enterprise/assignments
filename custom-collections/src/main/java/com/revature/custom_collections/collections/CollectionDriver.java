@@ -23,6 +23,9 @@ public class CollectionDriver {
         System.out.println(arr1.size());
         System.out.println(arr1.get(2));
 
+        System.out.println(arr1.contains("10"));
+        System.out.println(arr1.contains("25"));
+
 
 
     }

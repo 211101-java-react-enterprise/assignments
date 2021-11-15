@@ -54,7 +54,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean contains(T element) {
         for(T elementData : elements){
-            if(elementData.equals(element)){
+            if(elementData != null && elementData.equals(element)){
                 return true;
             }
         }
