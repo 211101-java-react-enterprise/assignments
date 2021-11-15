@@ -1,5 +1,6 @@
 package com.revature.custom_collections.collections;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -26,10 +27,27 @@ public class HashMap<K, V> implements Map<K, V> {
      * @param key the key whose associated value is to be returned
      * @return the value to which the specified key is mapped, or null if this map contains no mapping for the key
      */
+//    @Override
+//    public V get(K key) {
+//        return null;
+//    }
+
     @Override
     public V get(K key) {
+        tmp_head = head;
+        Node<K, V> prev = null;
+        for (int i = 0; i < size; i++) {
+            if (head.getKey().equals(key)) {
+                return head.getValue();
+            } else {
+                prev = head.next;
+                head = prev;
+            }
+        }
         return null;
     }
+
+
 
     /**
      * Associates the specified value with the specified key in this map. If the
@@ -39,10 +57,28 @@ public class HashMap<K, V> implements Map<K, V> {
      * @param value value to be associated with the specified key
      * @return the previous value associated with key, or null if there was no mapping for key.
      */
+//    @Override
+//    public V put(K key, V value) {
+//        return null;
+//    }
+
+    Node<K, V> head = null;
+    Node<K, V> tmp_head = null;
+
     @Override
     public V put(K key, V value) {
-        return null;
+        if (head == null) {
+            size = 1;
+            head = new Node<K, V>(hash(null), key, value, null);
+            return value;
+        } else {
+            size++;
+            Node<K, V> prev = head;
+            head = new Node<K, V>(hash(prev), key, value, prev);
+            return value;
+        }
     }
+
 
     /**
      * Removes the mapping for the specified key from this map if present.
@@ -50,10 +86,35 @@ public class HashMap<K, V> implements Map<K, V> {
      * @param key key whose mapping is to be removed from the map
      * @return the previous value associated with key, or null if there was no mapping for key.
      */
+//    @Override
+//    public V remove(K key) {
+//        return null;
+//    }
+
     @Override
     public V remove(K key) {
+
+        tmp_head = head;
+        Node<K, V> prev = null;
+        for (int i = 0; i < size; i++) {
+            if (head.getKey().equals(key)) {
+                size--;
+                if (prev != null) {
+                    prev.next = head.next;
+                    V v = head.getValue();
+                    head = prev;
+                    return v;
+                } else {
+                    return head.getValue();
+                }
+            } else {
+                prev = head;
+                head = head.next;
+            }
+        }
         return null;
     }
+
 
     /**
      * Returns true if this map contains a mapping for the specified key.
@@ -62,7 +123,12 @@ public class HashMap<K, V> implements Map<K, V> {
      * @return true if this map contains a mapping for the specified key.
      */
     @Override
-    public boolean containsKey(K key) {
+    public boolean containsKey(Object key) {
+        for (Entry<K, V> node : entries){
+            if(node.getKey()==key) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -73,7 +139,12 @@ public class HashMap<K, V> implements Map<K, V> {
      * @return true if this map maps one or more keys to the specified value
      */
     @Override
-    public boolean containsValue(V value) {
+    public boolean containsValue(Object value) {
+        for (Entry<K, V> node : entries){
+            if(node.getValue().equals(value)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -84,7 +155,7 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return (size==0);
     }
 
     /**
@@ -94,7 +165,7 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
