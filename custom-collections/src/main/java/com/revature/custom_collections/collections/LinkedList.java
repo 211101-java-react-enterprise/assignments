@@ -29,13 +29,17 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             return false;
         }
 
+        // Creates a new, empty node
         Node<T> newNode = new Node<>(data);
         if (head == null) {
+            // If there is no head, set this node as the head
             tail = head = newNode;
         } else {
+            // If there is a previous node, set the tail to the new node.
             tail = tail.nextNode = newNode;
         }
 
+        // Increase the size to reflect this change
         size++;
 
         return true;
@@ -53,8 +57,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public boolean contains(T data) {
 
+        // Create a copy of the head node to hold the parsed data
         Node<T> runner = head;
         while (runner != null) {
+            // If the node has the data we're looking for, return true.
             if (runner.data.equals(data)) {
                 return true;
             }
@@ -73,7 +79,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public boolean isEmpty() {
         return size == 0;
-    }
+    } // Simple boolean statement. Checks if size is zero.
 
     /**
      * Removes the first occurrence of the specified element from this list, if it is present.
@@ -87,6 +93,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public boolean remove(T data) {
 
+        // Initialize the previous node to null and set the current node to head
         Node<T> prevNode = null;
         Node<T> currentNode = head;
 
@@ -133,7 +140,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public int size() {
         return size;
-    }
+    } // Simple return method
 
     /**
      * Returns the element at the specified position in this list.
@@ -147,7 +154,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Provided index is out of bounds");
         }
-
+        // Iterates through the list until you get to the requested.
         Node<T> currentNode = head;
         for (int i = 0; i <= index; i++) {
             if (i == index) {
@@ -170,7 +177,43 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void add(int index, T element) {
+        // Initialize the previous node to null and set the current node to head
+        Node<T> prevNode = null;
+        Node<T> currentNode = head;
 
+        // Create our new node
+        Node<T> newNode = new Node<T>;
+        newNode.data = element;
+
+        // An exception could be placed here to watch for if the index is too large.
+        /*if (index < size) {
+            throw exception
+        }*/
+
+        // Traverse through the list
+        for (int i = 0; i < size; i++) {
+
+            // Keep going until we reach our requested index.
+            if (i == index) {
+
+                // Edit node links
+                if (currentNode == head) {
+                    newNode.nextNode = head;
+                    head = newNode;
+                } else {
+                    newNode.nextNode = currentNode;
+                    prevNode.nextNode = newNode;
+                }
+
+                // Increment the size of the list
+                size++;
+
+            }
+
+            // Move references forward to proceed through the linked list
+            prevNode = currentNode;
+            currentNode = currentNode.nextNode;
+        }
     }
 
     /**
