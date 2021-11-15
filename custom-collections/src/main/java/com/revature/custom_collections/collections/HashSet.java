@@ -1,5 +1,8 @@
 package com.revature.custom_collections.collections;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class implements the Set interface, backed by a hash table (actually
  * a HashMap instance). It makes no guarantees as to the iteration order of
@@ -11,6 +14,9 @@ package com.revature.custom_collections.collections;
 public class HashSet<T> implements Set<T> {
 
     private final Map<T, Object> map;
+    //private static final Object PRESENT = new Object();
+
+
 
     public HashSet() {
         this.map = new HashMap<>();
@@ -23,7 +29,7 @@ public class HashSet<T> implements Set<T> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return map.isEmpty();
     }
 
     /**
@@ -38,7 +44,8 @@ public class HashSet<T> implements Set<T> {
      */
     @Override
     public boolean add(T data) {
-        return false;
+        return map.put(data,map)==null;
+
     }
 
     /**
@@ -51,7 +58,7 @@ public class HashSet<T> implements Set<T> {
      */
     @Override
     public boolean contains(T data) {
-        return false;
+        return map.containsKey(data);
     }
 
     /**
@@ -64,7 +71,7 @@ public class HashSet<T> implements Set<T> {
      */
     @Override
     public boolean remove(T data) {
-        return false;
+        return map.remove(data)==map;
     }
 
     /**
@@ -74,7 +81,5 @@ public class HashSet<T> implements Set<T> {
      */
     @Override
     public int size() {
-        return 0;
+        return map.size();
     }
-
-}

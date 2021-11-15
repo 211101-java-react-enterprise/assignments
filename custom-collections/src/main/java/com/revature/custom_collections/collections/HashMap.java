@@ -38,12 +38,15 @@ public class HashMap<K, V> implements Map<K, V> {
         Node<K, V> prev = null;
         for (int i = 0; i < size; i++) {
             if (head.getKey().equals(key)) {
-                return head.getValue();
+                V v = head.getValue();
+                head = tmp_head;
+                return v;
             } else {
                 prev = head.next;
                 head = prev;
             }
         }
+        head = tmp_head;
         return null;
     }
 
@@ -93,8 +96,6 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V remove(K key) {
-
-        tmp_head = head;
         Node<K, V> prev = null;
         for (int i = 0; i < size; i++) {
             if (head.getKey().equals(key)) {
@@ -112,6 +113,8 @@ public class HashMap<K, V> implements Map<K, V> {
                 head = head.next;
             }
         }
+        return null;
+    }
         return null;
     }
 
