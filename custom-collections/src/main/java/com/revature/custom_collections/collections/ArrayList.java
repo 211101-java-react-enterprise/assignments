@@ -37,7 +37,7 @@ public class ArrayList<T> implements List<T> {
     private void makeRoom() {
        T[] tempArray= elements;
        elements =(T[])new Object[elements.length + 10];
-       for(int i=0;i<=tempArray.length;i++){
+       for(int i=0;i<=tempArray.length - 1;i++){
            elements[i]=tempArray[i];
        }
 
@@ -219,7 +219,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public int lastIndexOf(T element) {
         for(int i = elements.length - 1; i >= 0; i--){
-            if(elements[i].equals(element)){
+            if(elements[i] != null && elements[i].equals(element)){
                 return i;
             }
         }
