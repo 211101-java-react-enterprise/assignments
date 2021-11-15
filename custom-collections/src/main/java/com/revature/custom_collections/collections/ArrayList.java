@@ -11,6 +11,11 @@ package com.revature.custom_collections.collections;
  */
 public class ArrayList<T> implements List<T> {
 
+    private int size;
+
+    private T[] arr = (T[]) new Object[10];
+
+
     /**
      * Appends the specified element to the end of this list.
      *
@@ -19,6 +24,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T element) {
+        //todo
         return false;
     }
 
@@ -32,6 +38,11 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean contains(T element) {
+        for(int i = 0; i<size;i++){
+            if(arr[i].equals(element)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -42,7 +53,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -56,6 +67,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean remove(T element) {
+        //todo
         return false;
     }
 
@@ -66,7 +78,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -78,7 +90,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-        return null;
+        return arr[index];
     }
 
     /**
@@ -92,7 +104,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public void add(int index, T element) {
-
+        //todo
     }
 
     /**
@@ -105,6 +117,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T set(int index, T element) {
+        //todo
         return null;
     }
 
