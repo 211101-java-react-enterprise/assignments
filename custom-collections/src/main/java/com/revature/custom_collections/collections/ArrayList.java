@@ -24,8 +24,25 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T element) {
-        //todo
-        return false;
+        int loc = -1;
+        //looking for first null element
+        for(int i = 0; i<arr.length;i++){
+            if(arr[i] == null){
+                loc = i;
+                break;
+            }
+        }
+        if(loc != -1){
+            arr[loc] = element;
+            size++;
+        }else {
+            T[] oldarr= arr;
+            arr = (T[]) new Object[arr.length+1];
+            System.arraycopy(oldarr, 0, arr, 0, oldarr.length);
+            size++;
+            arr[arr.length-1] = element;
+        }
+        return true;
     }
 
     /**
@@ -67,7 +84,12 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean remove(T element) {
-        //todo
+        for(int i = 0; i<arr.length;i++){
+            if(arr[i].equals(element)){
+                arr[i] = null;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -104,7 +126,38 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public void add(int index, T element) {
-        //todo
+        boolean nullPres = false;
+        //looking for first null element
+        for (T t : arr) {
+            if (t == null) {
+                nullPres = true;
+                break;
+            }
+        }
+        T[] oldarr = arr;
+        if (nullPres) {
+            arr = (T[]) new Object[arr.length];
+            for (int i = 0; i < oldarr.length; i++) {
+                if (i < index) {
+                    arr[i] = oldarr[i];
+                } else if (i == index) {
+                    arr[i] = element;
+                } else {
+                    arr[i + 1] = oldarr[i];
+                }
+            }
+        } else {
+            arr = (T[]) new Object[arr.length + 1];
+            for (int i = 0; i < oldarr.length; i++) {
+                if (i < index) {
+                    arr[i] = oldarr[i];
+                } else if (i == index) {
+                    arr[i] = element;
+                } else {
+                    arr[i + 1] = oldarr[i];
+                }
+            }
+        }
     }
 
     /**
@@ -117,8 +170,9 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T set(int index, T element) {
-        //todo
-        return null;
+        T prev = arr[index];
+        arr[index] = element;
+        return prev;
     }
 
     /**
@@ -132,7 +186,19 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T remove(int index) {
-        return null;
+        if((index < 0 || index >= arr.length)){
+            throw new IndexOutOfBoundsException();
+        }
+        T data = null;
+        for (int i = 0; i < arr.length; i++) {
+            if (i >= index) {
+                if (i == index){
+                    data = arr[i];
+                }
+                arr[i] = arr[i+1];
+            }
+        }
+        return data;
     }
 
     /**
@@ -147,7 +213,12 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int indexOf(T element) {
-        return 0;
+        for(int i = 0; i<arr.length;i++){
+            if(arr[i].equals(element)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -162,7 +233,13 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int lastIndexOf(T element) {
-        return 0;
+        int loc = -1;
+        for(int i = 0; i<arr.length;i++){
+            if(arr[i].equals(element)){
+                loc = i;
+            }
+        }
+        return loc;
     }
 
 }
