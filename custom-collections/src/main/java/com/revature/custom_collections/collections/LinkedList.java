@@ -457,7 +457,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peekFirst() {
-        return null;
+        return head.data;
     }
 
     /**
@@ -468,7 +468,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peekLast() {
-        return null;
+        return tail.data;
     }
 
     /**
