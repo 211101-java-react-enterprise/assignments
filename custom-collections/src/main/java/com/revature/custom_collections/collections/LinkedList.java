@@ -185,10 +185,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         Node<T> newNode = new Node<T>;
         newNode.data = element;
 
-        // An exception could be placed here to watch for if the index is too large.
-        /*if (index < size) {
-            throw exception
-        }*/
+        // An exception for if the index is too large.
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Provided index is out of bounds");
+        }
 
         // Traverse through the list
         for (int i = 0; i < size; i++) {
@@ -226,6 +226,23 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T set(int index, T element) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Provided index is out of bounds");
+        }
+        // Iterates through the list until you get to the requested position.
+        Node<T> currentNode = head;
+        // Holder for previous data
+        Node<T> container = null;
+        for (int i = 0; i <= index; i++) {
+            if (i == index) {
+                // When you rach the location, save the data and return it after replacing it.
+                container.data = currentNode.data;
+                currentNode.data = element;
+                return container.data;
+            }
+            currentNode = currentNode.nextNode;
+        }
+        // Return null if something goes wrong.
         return null;
     }
 
@@ -240,6 +257,34 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Provided index is out of bounds");
+        }
+        // Iterates through the list until you get to the requested position.
+        Node<T> currentNode = head;
+        // Holder for previous data
+        Node<T> container = null;
+        Node<T> prevNode = null;
+        for (int i = 0; i <= index; i++) {
+            if (i == index) {
+                // When you reach the location, delete the data and bridge the gap
+                container.data = currentNode.data;
+                // Edit node links
+                if (currentNode == head) {
+                    head = currentNode.nextNode;
+                } else {
+                    prevNode.nextNode = currentNode.nextNode;
+                }
+
+                // Decrement the size of the list
+                size--;
+
+                return container.data;
+            }
+            prevNode = currentNode;
+            currentNode = currentNode.nextNode;
+        }
+        // Return null if something goes wrong.
         return null;
     }
 
@@ -256,6 +301,17 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public int indexOf(T element) {
+        // Create a copy of the head node to hold the parsed data
+        Node<T> runner = head;
+        int index = 0;
+        while (runner != null) {
+            // If the node has the data we're looking for, return true.
+            if (runner.data.equals(element)) {
+                return index;
+            }
+            runner = runner.nextNode;
+            index = index + 1;
+        }
         return -1;
     }
 
@@ -271,7 +327,19 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public int lastIndexOf(T element) {
-        return -1;
+        // Create a copy of the head node to hold the parsed data
+        Node<T> runner = head;
+        int index = 0;
+        int foundIndex = -1;
+        while (runner != null) {
+            // If the node has the data we're looking for, return true.
+            if (runner.data.equals(element)) {
+                foundIndex = index;
+            }
+            runner = runner.nextNode;
+            index = index + 1;
+        }
+        return foundIndex;
     }
 
     /**
@@ -282,7 +350,11 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void addFirst(T element) {
+        if (element == null) {
+            throw new NullPointerException("Provided element is null!");
+        }
 
+        
     }
 
     /**
