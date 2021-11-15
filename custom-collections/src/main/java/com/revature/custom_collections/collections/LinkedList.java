@@ -393,7 +393,22 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T pollFirst() {
-        return null;
+        //if empty returns null.
+        if (head==null) return null;
+        //keep track of previous head
+        Node<T> tempNode= head;
+        //if only one element, reduce size and set head and tail to null, then return tempnode
+        if(head.nextNode==null){
+            size--;
+            head = null;
+            tail= null;
+            return tempNode.data;
+        }
+        //otherwise reduce size set head to next node, and return temp
+        size--;
+        head =head.nextNode;
+        return tempNode.data;
+
     }
 
     /**
