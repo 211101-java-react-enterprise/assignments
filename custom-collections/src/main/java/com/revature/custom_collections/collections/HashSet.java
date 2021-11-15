@@ -1,7 +1,5 @@
 package com.revature.custom_collections.collections;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class implements the Set interface, backed by a hash table (actually
@@ -15,7 +13,6 @@ public class HashSet<T> implements Set<T> {
 
     private final Map<T, Object> map;
     //private static final Object PRESENT = new Object();
-
 
 
     public HashSet() {
@@ -44,7 +41,7 @@ public class HashSet<T> implements Set<T> {
      */
     @Override
     public boolean add(T data) {
-        return map.put(data,map)==null;
+        return map.put(data, map) == null;
 
     }
 
@@ -71,7 +68,7 @@ public class HashSet<T> implements Set<T> {
      */
     @Override
     public boolean remove(T data) {
-        return map.remove(data)==map;
+        return map.remove(data) == map;
     }
 
     /**
@@ -83,3 +80,4 @@ public class HashSet<T> implements Set<T> {
     public int size() {
         return map.size();
     }
+}
