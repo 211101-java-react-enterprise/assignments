@@ -18,31 +18,25 @@ public class ArrayList<T> implements List<T> {
      * @return true
      */
     protected T[] elements;
-    private int currentIndex;
-    private int capacity;
-    private int size;
+    private int size; // counts number of non-null elements
 
     public ArrayList() {
         elements =(T[]) new Object[10];
-        currentIndex = 0;
-        capacity=10;
         size = 0;
     }
 
     public boolean add(T element) {
-        if(currentIndex >= capacity){
-            makeroom();
+        if(size >= elements.length){
+            makeRoom();
         }
-        elements[currentIndex] = element;
-        currentIndex++;
+        elements[size] = element;
         size++;
         return true;
     }
 
-    private void makeroom() {
+    private void makeRoom() {
        T[] tempArray= elements;
-       capacity+=10;
-       elements =(T[])new Object[capacity];
+       elements =(T[])new Object[elements.length + 10];
        for(int i=0;i<=tempArray.length;i++){
            elements[i]=tempArray[i];
        }
@@ -74,7 +68,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean isEmpty() {
-        return size ==0;
+        return size == 0;
     }
 
     /**
@@ -89,13 +83,13 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean remove(T element) {
 
-        for(int i=0;i<capacity;i++){
+        for(int i=0;i<elements.length;i++){
             if(elements[i].equals(element)){
                 size--;
-                for(int j=i;j<capacity-1;j++){
+                for(int j=i;j<elements.length-1;j++){
                     elements[j]=elements[j+1];
                 }
-                elements[capacity-1]=null;
+                elements[elements.length-1]=null;
                 return true;
                 }
             }
@@ -135,16 +129,19 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public void add(int index, T element) throws IndexOutOfBoundsException{
-        if(index < 0 || index > size()){
+        if (index < 0 || index > size()){
             throw new IndexOutOfBoundsException("Index is out of bounds");
         }
+        if (size + 1 > elements.length) {
+            makeRoom();
+        }
+
         T temp=element;
         T temp2;
-        for(int i=index;i<capacity;i++){
+        for(int i=index;i<elements.length;i++){
             temp2 = elements[i];
             elements[i]=temp;
             temp=temp2;
-            //elements[i+1]= temp;
         }
         size++;
     }
@@ -175,14 +172,14 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T remove(int index) throws IndexOutOfBoundsException{
-        if(index < 0 || index > size()){
+        if(index < 0 || index > size){
             throw new IndexOutOfBoundsException("Index is out of bounds");
         }
         T temp = elements[index];
-        for(int i=index;i<capacity-1;i++){
+        for(int i=index;i<elements.length-1;i++){
             elements[i]=elements[i+1];
         }
-        elements[capacity-1]=null;
+        elements[elements.length-1]=null;
         size--;
         return temp;
     }
@@ -221,7 +218,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int lastIndexOf(T element) {
-        for(int i=capacity-1;i>=0;i--){
+        for(int i = elements.length - 1; i >= 0; i--){
             if(elements[i].equals(element)){
                 return i;
             }
