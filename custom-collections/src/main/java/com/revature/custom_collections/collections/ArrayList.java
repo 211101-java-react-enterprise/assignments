@@ -18,7 +18,7 @@ public class ArrayList<T> implements List<T> {
      * @return true
      */
     protected T[] elements;
-    private int size; // counts number of non-null elements
+    private int size; // number of current items in list
 
     public ArrayList() {
         elements =(T[]) new Object[10];
