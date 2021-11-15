@@ -27,7 +27,12 @@ public class ArrayList<T> implements List<T> {
     public boolean add(T element) {
         capacity++;
         Object[] newItems = new Object[capacity];
-        Items
+
+        for (int i = 0; i < items.length; i++) {
+            newItems[i] = items[i]
+        }
+        newItems[capacity-1] = element;
+        return true;
 
     }
 
