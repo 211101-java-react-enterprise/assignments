@@ -372,7 +372,17 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void addLast(T element) {
+        if (element == null) {
+            // When the element is null, will throw an exception.
+            throw new NullPointerException("Provided element is null!");
+        }
 
+        // Create a new node, point the tail to it, and assign it as the new tail.
+        Node<T> newData = null;
+        newData.data = element;
+        tail.nextNode = newData;
+        tail = newData;
+        size++;
     }
 
     /**
