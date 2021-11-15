@@ -167,7 +167,30 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void add(int index, T element) {
+        Node<T> newNode = new Node<>(element);
+        Node<T> current = head;
+        Node<T> prev = null;
+        if( index > size+1){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+            //iterate to injection point
+            for (int i = 0; i <= index; i++) {
+                if(i == index){
+                    //inject new node
+                    if (head == null || index == 0) {
+                        head = newNode;
+                    }
+                    if (prev != null){
+                        prev.nextNode = newNode;
+                    }
+                    newNode.nextNode = current;
 
+                    size++;
+                } else {
+                    prev = current;
+                    current = current.nextNode;
+                }
+            }
     }
 
     /**
@@ -180,6 +203,16 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T set(int index, T element) {
+        Node<T> currentNode = head;
+        for(int i=0;i<size;i++){
+            if(i == index){
+                T data = currentNode.data;
+                currentNode.data = element;
+                return data;
+            }else{
+                currentNode = currentNode.nextNode;
+            }
+        }
         return null;
     }
 
@@ -194,6 +227,19 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T remove(int index) {
+        Node<T> prev = null;
+        Node<T> currentNode = head;
+        for(int i=0;i<size;i++){
+            if(i == index){
+                if (prev != null) {
+                    prev.nextNode = currentNode.nextNode;
+                }
+                return currentNode.data;
+            }else{
+                prev = currentNode;
+                currentNode = currentNode.nextNode;
+            }
+        }
         return null;
     }
 
@@ -209,6 +255,13 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public int indexOf(T element) {
+        Node<T> current = head;
+        for(int i  = 0; i < size; i++){
+            if(current.data.equals(element)){
+                return i;
+            }
+            current = current.nextNode;
+        }
         return -1;
     }
 
@@ -224,7 +277,15 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public int lastIndexOf(T element) {
-        return -1;
+        int found = -1;
+        Node<T> current = head;
+        for(int i  = 0; i < size; i++){
+            if(current.data.equals(element)){
+                found = i;
+            }
+            current = current.nextNode;
+        }
+        return found;
     }
 
     /**
@@ -235,7 +296,9 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void addFirst(T element) {
-
+        Node<T> newNode = new Node<>(element);
+        newNode.nextNode = head;
+        head  = newNode;
     }
 
     /**
@@ -246,7 +309,11 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void addLast(T element) {
-
+        if (element == null){
+            throw new NullPointerException();
+        }
+        updateTail();
+        tail.nextNode = new Node<>(element);
     }
 
     /**
@@ -257,7 +324,13 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T pollFirst() {
-        return null;
+        Node<T> first = head;
+        if (first == null){
+            return null;
+        }else{
+            head = null;
+            return first.data;
+        }
     }
 
     /**
@@ -268,6 +341,18 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T pollLast() {
+        Node<T> prev = null;
+        Node<T> currentNode = head;
+        for(int i=0;i<size;i++){
+            if(i == size-1){
+                tail = prev;
+                prev.nextNode = null;
+                return currentNode.data;
+            }else{
+                prev = currentNode;
+                currentNode = currentNode.nextNode;
+            }
+        }
         return null;
     }
 
@@ -279,7 +364,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peekFirst() {
-        return null;
+        return head.data;
     }
 
     /**
@@ -290,7 +375,8 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peekLast() {
-        return null;
+        updateTail();
+        return tail.data;
     }
 
     /**
@@ -303,7 +389,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T poll() {
-        return null;
+        return pollFirst();
     }
 
     /**
@@ -316,7 +402,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peek() {
-        return null;
+        return peekFirst();
     }
 
     @Override
@@ -342,6 +428,17 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         strBldr.append("]");
 
         return strBldr.toString();
+    }
+
+    private void updateTail(){
+        Node<T> currentNode = head;
+        for(int i=0;i<size;i++){
+            if(i == size-1){
+                tail = currentNode;
+            }else{
+                currentNode = currentNode.nextNode;
+            }
+        }
     }
 
     // Nested Inner Class
