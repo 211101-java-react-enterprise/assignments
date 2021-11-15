@@ -43,7 +43,6 @@ public class HashMap<K, V> implements Map<K, V> {
         return thisValue;
     }
 
-
     /**
      * Associates the specified value with the specified key in this map. If the
      * map previously contained a mapping for the key, the old value is replaced.
@@ -105,16 +104,20 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public V remove(K key) {
-        V thisValue;
+        V thisValue = null;
         for(int i = 0; i < size; i++) {
             if(entries[i].getKey().equals(key)) {
                 thisValue = entries[i].getValue();
                 entries[i] = null;
                 size--;
-                return thisValue;
             }
+            if (thisValue != null) {
+                entries[i] = entries[i+1];
+            }
+
         }
-        return null;
+
+        return thisValue;
     }
 
     /**

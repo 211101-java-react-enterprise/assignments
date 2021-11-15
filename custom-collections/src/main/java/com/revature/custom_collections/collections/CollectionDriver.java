@@ -27,11 +27,14 @@ public class CollectionDriver {
         map.put(14,"1234");
         map.put(15,"12345");
         map.put(16,"123456");
+        System.out.println(map.remove(12));
         map.put(17,"1234567");
         map.put(18,"12345678");
+        System.out.println(map.remove(12));
         map.put(19,"1234");
         map.put(20,"123");
         System.out.println(map.size());
+
 
 
 
