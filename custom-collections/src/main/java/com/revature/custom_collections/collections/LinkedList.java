@@ -152,7 +152,6 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             }
             currentNode = currentNode.nextNode;
         }
-
         return null;
     }
 
@@ -167,7 +166,17 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void add(int index, T element) {
-
+        if (index >= this.size || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<T> insertNode = new Node<>(element);
+        Node<T> prevNode = head;
+        for (int i = 0; i < index; i++) {
+            prevNode = prevNode.nextNode;
+        }
+        Node<T> nextNode = prevNode.nextNode;
+        prevNode.nextNode = insertNode;
+        insertNode.nextNode = nextNode;
     }
 
     /**
@@ -180,7 +189,13 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T set(int index, T element) {
-        return null;
+        if (index >= this.size || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<T> target = new Node<>(this.get(index));
+        T targetData = target.data;
+        target.data = element;
+        return targetData;
     }
 
     /**
@@ -352,6 +367,14 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
         public Node(T data) {
             this.data = data;
+        }
+
+        public boolean hasNext() {
+            return (this.nextNode != null);
+        }
+
+        public Node<T> next() {
+            return this.nextNode;
         }
     }
 
