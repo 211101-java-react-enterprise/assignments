@@ -419,7 +419,34 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T pollLast() {
-        return null;
+        // Return null in a null statement.
+        if (tail == null) return null;
+        // Save the previous tail's data
+        Node<T> tempNode = tail;
+        // If the linked list is size 1, set the head to null as well as the tail and decrement size.
+        if (head.nextNode == null) {
+            size--;
+            head = null;
+            tail= null;
+            return tempNode.data;
+        }
+        // Otherwise, save the data and tack the new item onto the end.
+        // Read through the linked list
+        Node<T> runner = head;
+        while (runner != null){
+            // When the next node is the tail, the last node, we know it's time to get rid of it.
+            if (runner.nextNode == tail) {
+                // Set the runner's next node to null, since it's the new tail.
+                runner.nextNode = null;
+                // Set the tail to the new last value, that was previously right before the tail.
+                tail = runner;
+                // Decrement the size
+                size--;
+                // Return the previous tail's data
+                return tempNode.data;
+            }
+            runner = runner.nextNode;
+        }
     }
 
     /**
