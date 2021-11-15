@@ -10,10 +10,11 @@ public class CollectionDriver {
         testList.add(1, "value 2");
         testList.add(2, "value 3");
         testList.add(3, "value 4");
-        testList.add(1, "value 2 new");
-        testList.add(2, "value 3 new");
 
-        testList.set(2, "value UPDATED" );
+        testList.set(0, "VC1" );
+        testList.set(1, "VC1" );
+        testList.set(2, "VC1" );
+        testList.set(3, "VC1" );
 
 
     }

@@ -244,8 +244,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         }
 
         //Change Head
-        if (index == 0)
-        {
+        if (index == 0) {
             if(head == tail) {
                 //Change the head only element
                 returnElement = head; //Get the value to return
@@ -261,15 +260,14 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         }
 
         //Find position
-        for(int i = 0; i <= index; i++)
-        {
-            if (currentNode != tail)
+        for(int i = 0; i <= index; i++) {
+            if (i < index && currentNode != tail)
             {                                  /// H     V1     T
                 //Increment while we go
                 prevNode = currentNode;
                 currentNode = currentNode.nextNode;
             }
-            if (i == index && index != 0)
+            else if (i == index && index != 0)
             {
                 if (currentNode == tail)
                 {
@@ -283,8 +281,6 @@ public class LinkedList<T> implements List<T>, Deque<T> {
                 }
             }
         }
-
-
         return returnElement.data;
     }
 
