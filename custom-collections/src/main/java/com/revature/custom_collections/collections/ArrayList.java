@@ -14,6 +14,7 @@ public class ArrayList<T> implements List<T> {
     private int size = 0;
     private static final int DEFAULT = 10;
     private Object elements[] = new Object[DEFAULT];
+    private int maxCapacity = 10;
 
     /**
      * Appends the specified element to the end of this list.
@@ -23,16 +24,39 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T element) {
-        if (size%10 == 0) {
-            int newSize =
+
+        if (size == maxCapacity) {
+            grow();
         }
 
-        try {
+        elements[size++] = element;
 
-            elements[size] = element;
-            size++;
-        }
+        return true;
     }
+
+    public boolean grow(){
+        maxCapacity += 10;
+
+        System.out.println("\nDEMO: Maximum Capacity Increased");
+
+        Object[] result = new Object[maxCapacity];
+
+        System.arraycopy(elements, 0, result, 0, size);
+
+        elements = result;
+
+        return true;
+    }
+
+    public void displayArray() {
+        String result = "";
+        for(int i=0; i<size; i++){
+            result = result + elements[i] + " ";
+        }
+        result += " Size: " + size;
+        System.out.println(result);
+    }
+
 
     /**
      * Returns true if this list contains the specified element. More formally,
@@ -46,6 +70,11 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean contains(T element) {
+        for(int i = 0; i < size; i++){
+            if (elements[i].equals(element)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -56,7 +85,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return (size == 0) ? true : false;
     }
 
     /**
@@ -70,6 +99,15 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean remove(T element) {
+        for(int i = 0; i < size; i++){
+            if (elements[i].equals(element)) {
+                for(int j = i; j < size - 1; j++){
+                    elements[j] = elements[j+1];
+                }
+                size--;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -80,7 +118,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -92,7 +130,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-        return elements[index];
+        return (T)elements[index];
     }
 
     /**
@@ -106,7 +144,15 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public void add(int index, T element) {
+        if (size == maxCapacity) {
+            grow();
+        }
 
+        for(int i = size++; i > index; i--){
+
+            elements[i] = elements[i - 1];
+        }
+        elements[index] = element;
     }
 
     /**
@@ -119,6 +165,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T set(int index, T element) {
+        elements[index] = element;
         return null;
     }
 
@@ -133,6 +180,12 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T remove(int index) {
+
+
+        for(int i = index; i < size - 1; i++){
+            elements[i] = elements[i + 1];
+        }
+        size--;
         return null;
     }
 
@@ -148,7 +201,12 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int indexOf(T element) {
-        return 0;
+        for(int i = 0; i < size; i++){
+            if (elements[i].equals(element)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -163,7 +221,12 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int lastIndexOf(T element) {
-        return 0;
+        for(int i = size - 1; i >= 0; i--){
+            if (elements[i].equals(element)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
