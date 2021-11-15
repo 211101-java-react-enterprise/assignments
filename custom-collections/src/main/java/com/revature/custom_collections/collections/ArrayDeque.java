@@ -13,9 +13,10 @@ public class ArrayDeque<T> implements Deque<T> {
 
     /**
      * Constructs an empty array deque with an initial capacity sufficient to
-     * hold 16 elements.
+     * hold 16 elements. Vasili_Andrew_Collections
      */
     public ArrayDeque() {
+
         elements = new Object[16];
     }
 
@@ -26,6 +27,7 @@ public class ArrayDeque<T> implements Deque<T> {
      * @param initialCapacity lower bound on initial capacity of the deque
      */
     public ArrayDeque(int initialCapacity) {
+
         elements = new Object[initialCapacity];
     }
 
@@ -38,6 +40,7 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public boolean add(T element) {
+
         return false;
     }
 
@@ -52,6 +55,7 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public boolean contains(T element) {
+
         return false;
     }
 
@@ -62,6 +66,7 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public boolean isEmpty() {
+
         return false;
     }
 
@@ -78,11 +83,13 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public boolean remove(T element) {
+
         return false;
     }
 
     @Override
     public int size() {
+
         return 0;
     }
 
