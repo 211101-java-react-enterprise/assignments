@@ -31,11 +31,15 @@ public class HashMap<K, V> implements Map<K, V> {
     public V get(K key) {
         K thisKey;
         V thisValue = null;
-        if(key == null) {
-            return null;
-        }
+
         for(int i = 0; i < size; i++) {
             thisKey = entries[i].getKey();
+            if(thisKey == null) {
+                if(key == null) {
+                    thisValue = entries[i].getValue();
+                }
+                continue;
+            }
             if(thisKey.equals(key)) {
                 thisValue = entries[i].getValue();
             }
@@ -65,6 +69,10 @@ public class HashMap<K, V> implements Map<K, V> {
             thisKey = entries[i].getKey();
             //System.out.printf("thisKey: %s, givenKey: %s\n", thisKey, key);
             if(thisKey == null) {
+                if (i == size - 1) {
+                newEntry = new Node<>(hash(key), key, value, null);
+                entries[i + 1] = newEntry;
+                }
                 if (key == null) {
 
                     V oldValue = entries[i].getValue();
@@ -72,7 +80,8 @@ public class HashMap<K, V> implements Map<K, V> {
                     entries[i + 1] = newEntry;
                     size++;
                     return oldValue;
-                } else {
+                }
+                else {
                     continue;
                 }
             }
@@ -106,7 +115,16 @@ public class HashMap<K, V> implements Map<K, V> {
     public V remove(K key) {
         V thisValue = null;
         for(int i = 0; i < size; i++) {
-            if(entries[i].getKey().equals(key)) {
+            K thisKey = entries[i].getKey();
+            if(thisKey == null) {
+                if(key == null) {
+                    thisValue = entries[i].getValue();
+                    entries[i] = null;
+                    size--;
+                }
+                continue;
+            }
+            if(thisKey.equals(key)) {
                 thisValue = entries[i].getValue();
                 entries[i] = null;
                 size--;
