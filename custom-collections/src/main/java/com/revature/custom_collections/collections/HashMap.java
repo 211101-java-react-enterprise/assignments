@@ -136,16 +136,6 @@ public class HashMap<K, V> implements Map<K, V> {
         while (true);
     }
     //TODO: we have to test if we are on the right track tomorrow
-    //Qi's Code
-//    @Override
-//    public boolean containsKey(K key) {
-//        for (Entry<K, V> node : entries){
-//            if(node.getKey()==key) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 
     /**
      * Returns true if this map maps one or more keys to the specified value.
@@ -155,12 +145,19 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean containsValue(V value) {
-        for (Entry<K, V> node : entries){
-            if(node.getKey()==value) {
+        Node<K, V> n = (Node<K, V>) entries[hash(value) % DEFAULT_CAPACITY];
+
+        if (n == null) {return false;}
+        do {
+            if (n.getValue() == value) {
                 return true;
+            } else if (n.next == null) {
+                return false;
+            } else {
+                n = n.next;
             }
         }
-        return false;
+        while (true);
     }
 
     /**
