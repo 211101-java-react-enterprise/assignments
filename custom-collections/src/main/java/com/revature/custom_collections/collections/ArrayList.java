@@ -1,5 +1,7 @@
 package com.revature.custom_collections.collections;
 
+import java.util.Arrays;
+
 /**
  * Resizable-array implementation of the List interface. Permits all element values,
  * including null. Each ArrayList instance has a capacity. The capacity is the size
@@ -242,4 +244,7 @@ public class ArrayList<T> implements List<T> {
         return loc;
     }
 
+    public String toString(){
+        return Arrays.toString(arr);
+    }
 }

@@ -234,6 +234,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
                 if (prev != null) {
                     prev.nextNode = currentNode.nextNode;
                 }
+                size--;
                 return currentNode.data;
             }else{
                 prev = currentNode;
@@ -299,6 +300,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         Node<T> newNode = new Node<>(element);
         newNode.nextNode = head;
         head  = newNode;
+        size++;
     }
 
     /**
@@ -313,6 +315,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             throw new NullPointerException();
         }
         updateTail();
+        size++;
         tail.nextNode = new Node<>(element);
     }
 
@@ -328,7 +331,12 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         if (first == null){
             return null;
         }else{
-            head = null;
+            if(head.nextNode != null){
+                head = head.nextNode;
+            }else {
+                head = null;
+            }
+            size--;
             return first.data;
         }
     }
@@ -347,6 +355,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             if(i == size-1){
                 tail = prev;
                 prev.nextNode = null;
+                size--;
                 return currentNode.data;
             }else{
                 prev = currentNode;
@@ -441,6 +450,9 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         }
     }
 
+    public void printHead(){
+        System.out.println(System.identityHashCode(head));
+    }
     // Nested Inner Class
     // The outer class (LinkedList) can see all of the members of this class
     private static class Node<T> {
