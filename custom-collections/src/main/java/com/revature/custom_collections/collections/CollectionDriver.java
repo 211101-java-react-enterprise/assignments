@@ -15,8 +15,9 @@ public class CollectionDriver {
          *
          */
 
-        //Instantiate arrayList to type String for this demo.
+        //Instantiate arrayList and arrayList1 to type String for this demo.
         ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<String> arrayList1 = new ArrayList<>();
 
         /*
          * Overloaded Add
@@ -95,12 +96,46 @@ public class CollectionDriver {
         }
         System.out.println("______________________________________________");
 
+        System.out.println("indexOf(T element) demo");
+        System.out.println("______________________________________________");
+        System.out.println(arrayList.toStringTrim());
+        System.out.println("S is at index = " + arrayList.indexOf("S"));
+        System.out.println(arrayList.toStringTrim());
+        System.out.println("A is at index = " + arrayList.indexOf("A"));
+        System.out.println("______________________________________________");
+
+        System.out.println("lastIndexOf(T element) demo");
+        System.out.println("______________________________________________");
+        arrayList1.add("A");
+        arrayList1.add("B");
+        arrayList1.add("C");
+        arrayList1.add("D");
+        arrayList1.add("A");
+        arrayList1.add("E");
+        System.out.println(arrayList1.toStringTrim());
+        System.out.println("The index of the last occurence of A is: " + arrayList1.lastIndexOf("A"));
+        System.out.println("______________________________________________");
+
         System.out.println("remove(int index) demo");
         System.out.println("______________________________________________");
-        System.out.println(arrayList.remove();
+        System.out.println(arrayList.remove(2));
         System.out.println(arrayList.toString());
-        System.out.println(arrayList.remove("W"));
+        System.out.println(arrayList.remove(2));
         System.out.println(arrayList.toString());
+
+        try {
+            System.out.println(arrayList.remove(-1));
+            System.out.println(arrayList.toString());
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println(arrayList.remove(3));
+            System.out.println(arrayList.toString());
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
         System.out.println("______________________________________________");
 
 

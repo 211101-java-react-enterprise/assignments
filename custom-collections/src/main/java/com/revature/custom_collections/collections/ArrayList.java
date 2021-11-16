@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class ArrayList<T> implements List<T> {
 
-    private T[] array = (T[]) new Object[999];
+    private T[] array = (T[]) new Object[10];
     private int size = 0;
 
     /**
@@ -83,9 +83,10 @@ public class ArrayList<T> implements List<T> {
             if (array[i] == element) {
                 array[i] = null;
                 size--;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
