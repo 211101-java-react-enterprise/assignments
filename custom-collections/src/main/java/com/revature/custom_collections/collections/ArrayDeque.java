@@ -10,6 +10,12 @@ package com.revature.custom_collections.collections;
 public class ArrayDeque<T> implements Deque<T> {
 
     private Object[] elements;
+    private int size = 0;
+    private int capacity = 16;
+    private static final int DEFAULT = 16;
+    private int head = -1; //index of head
+    private int tail = -1; //index of tail
+
 
     /**
      * Constructs an empty array deque with an initial capacity sufficient to
@@ -26,10 +32,31 @@ public class ArrayDeque<T> implements Deque<T> {
      * @param initialCapacity lower bound on initial capacity of the deque
      */
 
-
-
     public ArrayDeque(int initialCapacity) {
         elements = new Object[initialCapacity];
+        capacity = initialCapacity;
+    }
+
+    public void grow(){
+//        capacity += 16;
+
+        Object[] result = new Object[capacity + 16];
+
+        System.arraycopy(elements, 0, result, 8, capacity);
+
+        capacity+=16;
+        elements = result;
+        head+= 8;
+        tail+=8;
+    }
+
+    public void display() {
+        String result = "";
+        for(int i=0; i<capacity; i++){
+            result = result + elements[i] + " ";
+        }
+        result += " Size: " + size + " Head: " + head + " Tail " +tail;
+        System.out.println(result);
     }
 
     /**
@@ -41,7 +68,18 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public boolean add(T element) {
-        return false;
+        if (element == null) {
+            throw new NullPointerException("Caught Null Pointer Exception");
+        }
+
+        if (tail==capacity-1) grow();
+
+        if (head == -1 && tail == -1) {
+            head = tail = capacity/2;
+            elements[tail] = element;
+        } else elements[++tail] = element;
+        size++;
+        return true;
     }
 
 
@@ -55,6 +93,11 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public boolean contains(T element) {
+        for(int i = head; i <=tail ; i++){
+            if (elements[i].equals(element)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -65,7 +108,7 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return (size == 0);
     }
 
     /**
@@ -81,12 +124,26 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public boolean remove(T element) {
+        if (isEmpty()) return false;
+
+        for(int i = head; i <= tail; i++){
+            if (elements[i].equals(element)) {
+
+                for(int j = i; j <= tail; j++){
+                    elements[j] = elements[j+1];
+                }
+                if( --size == 0){
+                    head = tail = -1;
+                }else tail--;
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -97,6 +154,15 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public void addFirst(T element) {
+        if (element == null) {
+            throw new NullPointerException("Caught Null Pointer Exception");
+        }
+        if (++size >= capacity) grow();
+
+        if (head == -1 && tail == -1) {
+            head = tail = capacity/2;
+            elements[tail] = element;
+        } else elements[--head] = element;
 
     }
 
@@ -108,7 +174,15 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public void addLast(T element) {
+        if (element == null) {
+            throw new NullPointerException("Caught Null Pointer Exception");
+        }
+        if (++size >= capacity) grow();
 
+        if (head == -1 && tail == -1) {
+            head = tail = capacity/2;
+            elements[tail] = element;
+        } else elements[--tail] = element;
     }
 
     /**
@@ -119,7 +193,13 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public T pollFirst() {
-        return null;
+        if(isEmpty()) return null;
+        T result = (T)elements[head];
+        elements[head] = null;
+        head++;
+        if (--size==0) head = tail = -1;
+
+        return result;
     }
 
     /**
@@ -130,7 +210,12 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public T pollLast() {
-        return null;
+        if(isEmpty()) return null;
+        T result = (T)elements[tail];
+        tail--;
+        if (--size==0) head = tail = -1;
+
+        return result;
     }
 
     /**
@@ -141,7 +226,8 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public T peekFirst() {
-        return null;
+        if(isEmpty()) return null;
+        return (T)elements[head];
     }
 
     /**
@@ -152,7 +238,8 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public T peekLast() {
-        return null;
+        if(isEmpty()) return null;
+        return (T)elements[tail];
     }
 
     /**
@@ -165,7 +252,7 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public T poll() {
-        return null;
+        return pollFirst();
     }
 
     /**
@@ -178,7 +265,8 @@ public class ArrayDeque<T> implements Deque<T> {
      */
     @Override
     public T peek() {
-        return null;
+        if(isEmpty()) return null;
+        return (T)elements[head];
     }
 
 }
