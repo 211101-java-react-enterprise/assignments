@@ -182,7 +182,7 @@ public class ArrayDeque<T> implements Deque<T> {
         if (head == -1 && tail == -1) {
             head = tail = capacity/2;
             elements[tail] = element;
-        } else elements[--tail] = element;
+        } else elements[++tail] = element;
     }
 
     /**
@@ -212,6 +212,7 @@ public class ArrayDeque<T> implements Deque<T> {
     public T pollLast() {
         if(isEmpty()) return null;
         T result = (T)elements[tail];
+        elements[tail] = null;
         tail--;
         if (--size==0) head = tail = -1;
 
