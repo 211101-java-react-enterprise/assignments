@@ -411,7 +411,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void addFirst(T element) {
-
+        this.add(0, element);
     }
 
     /**
@@ -422,7 +422,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void addLast(T element) {
-
+        this.add((size - 1), element);
     }
 
     /**
@@ -433,7 +433,14 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T pollFirst() {
-        return null;
+        Node<T> holderNode = null;
+        if (size() == 0){
+            return null;
+        }
+        {
+            holderNode.data = remove(0);
+        }
+        return holderNode.data;
     }
 
     /**
@@ -444,7 +451,11 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T pollLast() {
-        return null;
+        if (size == 0){
+            return null;
+        } else {
+            return tail.data;
+        }
     }
 
     /**
@@ -455,7 +466,11 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peekFirst() {
-        return null;
+        if (size == 0){
+            return null;
+        } else {
+            return head.data;
+        }
     }
 
     /**
@@ -466,7 +481,11 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peekLast() {
-        return null;
+        if (size == 0){
+            return null;
+        } else {
+            return tail.data;
+        }
     }
 
     /**
@@ -499,7 +518,11 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peek() {
-        return head.data;
+        if (size == 0){
+            return null;
+        } else {
+            return head.data;
+        }
     }
 
     @Override
