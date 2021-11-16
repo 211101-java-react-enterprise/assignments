@@ -55,7 +55,11 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean contains(T element) {
-
+        for (int i = 0; i < Size; i++) {
+            if (element.equals(myList[i])) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -67,7 +71,11 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean isEmpty() {
 
-        return indexSize == 0;
+        if (Size <= 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
