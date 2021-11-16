@@ -1,5 +1,7 @@
 package com.revature.custom_collections.collections;
 
+import java.util.Arrays;
+
 /**
  * Resizable-array implementation of the List interface. Permits all element values,
  * including null. Each ArrayList instance has a capacity. The capacity is the size
@@ -11,6 +13,17 @@ package com.revature.custom_collections.collections;
  */
 public class ArrayList<T> implements List<T> {
 
+    protected int size;
+    protected Object[] elements;
+
+    public ArrayList() {
+        elements = new Object[16];
+    }
+
+    public ArrayList(int initialCapacity) {
+        elements = new Object[initialCapacity];
+    }
+
     /**
      * Appends the specified element to the end of this list.
      *
@@ -19,7 +32,10 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T element) {
-        return false;
+        elements[size] = element;
+        size++;
+        resizeBackingArrayIfNeeded();
+        return true;
     }
 
     /**
@@ -32,6 +48,15 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean contains(T element) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i] == null) {
+                if (element == null) {
+                    return true;
+                }
+            } else if (elements[i].equals(element)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -42,7 +67,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -56,6 +81,13 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean remove(T element) {
+        for (int i = 0; i < size; i++) {
+            if ((elements[i] == null && element == null) || (elements[i] != null && elements[i].equals(element))) {
+                removeAtIndex(i);
+                size--;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -66,7 +98,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -77,8 +109,10 @@ public class ArrayList<T> implements List<T> {
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     @Override
+    @SuppressWarnings({"unchecked"})
     public T get(int index) {
-        return null;
+        if (notInRange(index)) throw new IndexOutOfBoundsException();
+        return (T) elements[index];
     }
 
     /**
@@ -92,7 +126,13 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public void add(int index, T element) {
-
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+        Object[] newElements = resizeWillBeNeeded(size + 1) ? new Object[nextSize()] : new Object[elements.length];
+        System.arraycopy(elements, 0, newElements, 0, index);
+        System.arraycopy(elements, index, newElements, index + 1, elements.length - index - 1);
+        newElements[index] = element;
+        size++;
+        elements = newElements;
     }
 
     /**
@@ -104,8 +144,12 @@ public class ArrayList<T> implements List<T> {
      * @return the element previously at the specified position
      */
     @Override
+    @SuppressWarnings({"unchecked"})
     public T set(int index, T element) {
-        return null;
+        if (notInRange(index)) throw new IndexOutOfBoundsException();
+        T oldElement = (T) elements[index];
+        elements[index] = element;
+        return oldElement;
     }
 
     /**
@@ -118,8 +162,14 @@ public class ArrayList<T> implements List<T> {
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     @Override
+    @SuppressWarnings({"unchecked"})
     public T remove(int index) {
-        return null;
+        if (notInRange(index)) throw new IndexOutOfBoundsException();
+        T oldElement = (T) elements[index];
+        removeAtIndex(index);
+        size--;
+        return oldElement;
+
     }
 
     /**
@@ -134,7 +184,12 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int indexOf(T element) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if ((elements[i] == null && element == null) || (elements[i] != null && elements[i].equals(element))) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -149,7 +204,52 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int lastIndexOf(T element) {
-        return 0;
+        for (int i = size - 1; i >= 0; i--) {
+            if ((elements[i] == null && element == null) || (elements[i] != null && elements[i].equals(element))) {
+                return i;
+            }
+        }
+        return -1;
     }
 
+    protected boolean notInRange(int index) {
+        return index < 0 || index >= size;
+    }
+
+    protected void resizeBackingArrayIfNeeded() {
+        if (size >= elements.length * 0.75) {
+            Object[] newBackingArray = new Object[nextSize()];
+            System.arraycopy(elements, 0, newBackingArray, 0, elements.length);
+            elements = newBackingArray;
+        }
+    }
+
+    protected boolean resizeWillBeNeeded(int nextSize) {
+        return (nextSize >= elements.length * 0.75);
+    }
+
+    protected int nextSize() {
+        return (int) (elements.length * 0.5) + elements.length;
+    }
+
+    private void removeAtIndex(int index) {
+        if (index == 0) {
+            Object[] nextElements = new Object[elements.length];
+            System.arraycopy(elements, 1, nextElements, 0, elements.length - 2);
+            elements = nextElements;
+        } else if (index == size() - 1) {
+            elements[index] = null;
+        } else {
+            Object[] newElements = new Object[elements.length];
+            System.arraycopy(elements, 0, newElements, 0, index);
+            System.arraycopy(elements, index + 1, newElements, index, elements.length - index - 1);
+            elements = newElements;
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(elements);
+    }
 }
