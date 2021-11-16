@@ -174,50 +174,58 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         boolean insertedintolist = false; //flag for insertion incrementing
 
         //Check index is not out of range. If so throw exception
-        if (index < 0 || index > size()) {
+        if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException();
         }
-        //Index valid
-        for (int i = 0; i <= index; i++) {
-            //inserting into an empty list
-            if (index == 0 && size == 0) {
-                head = tail = insertingElement;
-                insertedintolist = true;
-            }
-            //inserting into a list with just a head
-            else if (size == 1) {
-                //Make new head
-                if (index == 0) {
-                    insertingElement.nextNode = head;
-                    head = insertingElement;
-                    //Tail stays on previous head;
-                }
-                //make new tail
-                if (index != 0) {
-                    head.nextNode = insertingElement;
-                    tail = insertingElement;
-                }
-                insertedintolist = true;
-            } else if (i < index) {
-                //inserting a new tail
-                if (currentNode == tail && prevNode != null) {
-                    tail = insertingElement;   //PN ----> CN -----> IE
-                    currentNode.nextNode = tail;
-                }
-                //otherwise iterate
 
-            } else {//I is at the index, but has not reached the tail
-                prevNode.nextNode = insertingElement;   // PN --> IE ---> CN
-                insertingElement.nextNode = currentNode;
-                insertedintolist = true;
-            }
-            //Increment if none of test cases
+        //Empty list.
+        if (index == 0 && size == 0) {
+            head = tail = insertingElement;
+            insertedintolist = true;
+        } else {
+        //Not Empty list
+            for (int i = 0; i <= index; i++) {
+                if (i == index) {//At the right spot
+                    //inserting a new head
+                    if (currentNode == head) {
+                        if (size() == 0) { //Empty List
+                            head = tail = insertingElement;
+                            insertedintolist = true;
+                        } else if (head == tail) { //Single Element
+                            insertingElement.nextNode = tail;
+                            head = insertingElement;
+                            insertedintolist = true;
+                        } else { //Longer List
+                            insertingElement.nextNode = head;
+                            head = insertingElement;
+                            insertedintolist = true;
+                        }
+                    }
+                    //Pushing the Tail out.
+                    else if (currentNode == tail && prevNode != null && currentNode != head) {
+                        prevNode.nextNode = insertingElement;
+                        insertingElement.nextNode = tail;
+                        insertedintolist = true;
+                    }
+                    //Anywhere between head and tail
+                    else {
+                        insertingElement.nextNode = currentNode;
+                        prevNode.nextNode = insertingElement;
+                        insertedintolist = true;
+                    }
 
-            if (insertedintolist == false) {
-                prevNode = currentNode;
-                currentNode = currentNode.nextNode;
+                }
+                //Increment if none of test cases
+                if (insertedintolist == false) {
+                    prevNode = currentNode;
+                    if(currentNode.nextNode != null) {
+                        currentNode = currentNode.nextNode;
+                    }
+                }
             }
         }
+
+        //Increase size
         size++; //TODO IMPLEMENTED
     }
 
@@ -295,7 +303,50 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T remove(int index) {
-        return null;
+        //Local nodes
+        Node<T> prevNode = null;
+        Node<T> currentNode = head;
+        Node<T> removedNode = null;
+
+        if (index < 0 || index >= size())
+        {
+            throw new IndexOutOfBoundsException("Index out of bounds.");
+        }
+
+        for (int i = 0; i <= index; i++ )
+        {
+            if (i != index ){
+                if (currentNode != tail) {
+                    prevNode = currentNode;
+                    currentNode = currentNode.nextNode;
+                }
+            } else {
+                //Head change
+                //tail change
+                //middle change
+                if (head == currentNode && head == tail ){
+                    removedNode = currentNode;
+                    head = tail = null;
+                } else if ( head == currentNode && head != tail)
+                {
+                    removedNode = currentNode;
+                    head = head.nextNode;
+                }
+                else if(currentNode != tail){ //Middle Insert
+                    removedNode = currentNode;
+                    prevNode.nextNode = currentNode.nextNode;
+                }
+                else if (currentNode == tail){
+                    removedNode = currentNode;
+                    tail = prevNode;
+                }
+
+            }
+
+        }
+
+        size--;
+        return removedNode.data;
     }
 
     /**
@@ -310,6 +361,17 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public int indexOf(T element) {
+        Node<T> runner = head;
+        int i = 0;
+        while (i < size()){
+            {
+                if (runner.data.equals(element)) {
+                    return i;
+                }
+                runner = runner.nextNode;
+                i++;
+            }
+        }
         return -1;
     }
 
@@ -325,7 +387,20 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public int lastIndexOf(T element) {
-        return -1;
+        Node<T> runner = head;
+        int location = -1;
+        int i = 0;
+
+        while (i < size()){
+            {
+                if (runner.data.equals(element)) {
+                    location = i;
+                }
+                runner = runner.nextNode;
+                i++;
+            }
+        }
+        return location;
     }
 
     /**
@@ -404,7 +479,14 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T poll() {
-        return null;
+        Node<T> holderNode = null;
+        if (size() == 0){
+            return null;
+        }
+        {
+            holderNode.data = remove(0);
+        }
+        return holderNode.data;
     }
 
     /**
@@ -417,7 +499,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peek() {
-        return null;
+        return head.data;
     }
 
     @Override
