@@ -178,11 +178,11 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public void add(int index, T element) {
         // Initialize the previous node to null and set the current node to head
-        Node<T> prevNode = null;
+        Node<T> prevNode = new Node<T>(null);
         Node<T> currentNode = head;
 
         // Create our new node
-        Node<T> newNode = new Node<T>;
+        Node<T> newNode = new Node<T> (null);
         newNode.data = element;
 
         // An exception for if the index is too large.
@@ -207,6 +207,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
 
                 // Increment the size of the list
                 size++;
+                break;
 
             }
 
@@ -232,7 +233,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         // Iterates through the list until you get to the requested position.
         Node<T> currentNode = head;
         // Holder for previous data
-        Node<T> container = null;
+        Node<T> container = new Node<T> (null);
         for (int i = 0; i <= index; i++) {
             if (i == index) {
                 // When you rach the location, save the data and return it after replacing it.
@@ -263,8 +264,8 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         // Iterates through the list until you get to the requested position.
         Node<T> currentNode = head;
         // Holder for previous data
-        Node<T> container = null;
-        Node<T> prevNode = null;
+        Node<T> container = new Node<T> (null);
+        Node<T> prevNode = new Node<T> (null);
         for (int i = 0; i <= index; i++) {
             if (i == index) {
                 // When you reach the location, delete the data and bridge the gap
@@ -355,7 +356,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             throw new NullPointerException("Provided element is null!");
         }
         //Creates new node and assigns to head, and points to previos head.
-        Node<T> newdata = null;
+        Node<T> newdata = new Node<T> (null);
         newdata.data = element;
         newdata.nextNode = head;
         head = newdata;
@@ -378,7 +379,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         }
 
         // Create a new node, point the tail to it, and assign it as the new tail.
-        Node<T> newData = null;
+        Node<T> newData = new Node<T> (null);
         newData.data = element;
         tail.nextNode = newData;
         tail = newData;
@@ -447,6 +448,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             }
             runner = runner.nextNode;
         }
+        return null;
     }
 
     /**

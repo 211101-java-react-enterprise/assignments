@@ -1,7 +1,5 @@
 package com.revature.custom_collections.collections;
 
-import com.sun.tools.javac.jvm.Items;
-
 /**
  * Resizable-array implementation of the List interface. Permits all element values,
  * including null. Each ArrayList instance has a capacity. The capacity is the size
@@ -13,10 +11,6 @@ import com.sun.tools.javac.jvm.Items;
  */
 public class ArrayList<T> implements List<T> {
 
-    private int capacity;
-    private Object[] items;
-
-
     /**
      * Appends the specified element to the end of this list.
      *
@@ -25,15 +19,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T element) {
-        capacity++;
-        Object[] newItems = new Object[capacity];
-
-        for (int i = 0; i < items.length; i++) {
-            newItems[i] = items[i]
-        }
-        newItems[capacity-1] = element;
-        return true;
-
+        return false;
     }
 
     /**
@@ -164,10 +150,6 @@ public class ArrayList<T> implements List<T> {
     @Override
     public int lastIndexOf(T element) {
         return 0;
-    }
-
-
-
     }
 
 }
