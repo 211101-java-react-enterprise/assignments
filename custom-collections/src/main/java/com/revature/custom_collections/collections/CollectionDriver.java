@@ -37,6 +37,37 @@ public class CollectionDriver {
 
         arr.displayArray();
 
+        /** Uncomment below to show ArrayDeque **/
+
+//        ArrayDeque arr = new ArrayDeque();
+//
+//        System.out.println(arr.peekFirst());
+//        arr.add("1");
+//        System.out.println(arr.poll()); //1
+//
+//
+//        for (int i=0;i<=16; i++){
+//            arr.add(String.valueOf(i));
+//        }
+//
+//        arr. add("2");
+//        arr.addFirst("40");
+//        arr.remove("1");
+//        System.out.println(arr.poll()); //40
+//        System.out.println(arr.poll()); //0
+//        System.out.println(arr.poll()); //2
+//        System.out.println(arr.peekLast()); //2
+//
+//        arr.remove("2");
+//        System.out.println(arr.pollLast()); //16
+//
+//        arr.addLast("Yolo");
+//        System.out.println(arr.peekLast()); //Yolo
+//
+//        arr.display();
+//        System.out.println(arr.pollFirst()); //3
+//        System.out.println(arr.peekFirst()); //4
+//        arr.display();
 
     }
 }
