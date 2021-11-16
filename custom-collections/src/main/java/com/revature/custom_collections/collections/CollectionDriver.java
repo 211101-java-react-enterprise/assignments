@@ -5,7 +5,6 @@ import java.sql.SQLOutput;
 public class CollectionDriver {
 
     public static void main(String[] args) {
-        // TODO: Provide a demonstration of your implemented data structures here.
         LinkedList<String> example = new LinkedList<String>();
         example.add("one");
         example.add("two");
@@ -28,7 +27,7 @@ public class CollectionDriver {
         example.add(1,"two");
         System.out.println("Let's get 2 back in there...  " + example);
 
-        example.set(2, "3");
+        System.out.println(example.set(2, "3"));
         System.out.println("Actually, let's replace three... " + example);
 
         example.remove(2);
