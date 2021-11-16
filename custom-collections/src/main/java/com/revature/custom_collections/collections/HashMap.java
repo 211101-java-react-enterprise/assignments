@@ -28,12 +28,21 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public V get(K key) {
-        for(Entry<K, V> node:entries){
-            if(node.getKey().equals(key)){
-                return node.getValue();
+        Node<K, V> n = (Node<K, V>) entries[hash(key) % DEFAULT_CAPACITY];
+
+        if (n == null) {
+            return null;
+        }
+        do {
+            if (n.getKey() == key) {
+                return n.getValue();
+            } else if (n.next == null) {
+                return null;
+            } else {
+                n = n.next;
             }
         }
-        return null;
+        while (true);
     }
 
     /**
@@ -46,7 +55,25 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public V put(K key, V value) {
-        return null;
+        Node<K, V> n = (Node<K, V>) entries[hash(key) % DEFAULT_CAPACITY];
+        if (n == null) {
+            size++;
+            entries[hash(key) % DEFAULT_CAPACITY] = new Node<K, V>(hash(key), key, value, null);
+            return value;
+        }
+        do {
+            if (n.getKey() == key) {
+                n.setValue(value);
+                return value;
+            } else if (n.next == null) {
+                size++;
+                n.next = new Node<K, V>(hash(key), key, value, null);
+                return value;
+            } else {
+                n = n.next;
+            }
+        }
+        while (true);
     }
 
     /**
@@ -57,7 +84,29 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public V remove(K key) {
-        return null;
+        Node<K, V> n = (Node<K, V>) entries[hash(key) % DEFAULT_CAPACITY];
+
+        if (n == null) {
+            return null;
+        }
+        Node<K, V> prev = null;
+        do {
+            if (n.getKey() == key) {
+                size--;
+                if (prev == null) {
+                    entries[hash(key) % DEFAULT_CAPACITY] = n.next;
+                } else {
+                    prev.next = n.next;
+                }
+                return n.getValue();
+            } else if (n.next == null) {
+                return null;
+            } else {
+                prev = n;
+                n = n.next;
+            }
+        }
+        while (true);
     }
 
     /**
@@ -66,15 +115,37 @@ public class HashMap<K, V> implements Map<K, V> {
      * @param key the key whose presence in this map is to be tested
      * @return true if this map contains a mapping for the specified key.
      */
+    //JongSoo's Code
     @Override
     public boolean containsKey(K key) {
-        for (Entry<K, V> node : entries){
-            if(node.getKey()==key) {
+        Node<K, V> n = (Node<K, V>) entries[hash(key) % DEFAULT_CAPACITY];
+
+        if (n == null) {
+            return false;
+        }
+
+        do {
+            if (n.getKey() == key) {
                 return true;
+            } else if (n.next == null) {
+                return false;
+            } else {
+                n = n.next;
             }
         }
-        return false;
+        while (true);
     }
+    //TODO: we have to test if we are on the right track tomorrow
+    //Qi's Code
+//    @Override
+//    public boolean containsKey(K key) {
+//        for (Entry<K, V> node : entries){
+//            if(node.getKey()==key) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     /**
      * Returns true if this map maps one or more keys to the specified value.
