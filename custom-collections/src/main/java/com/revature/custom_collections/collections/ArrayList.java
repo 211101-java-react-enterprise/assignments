@@ -17,11 +17,11 @@ public class ArrayList<T> implements List<T> {
      * @param element element to be appended to this list
      * @return true
      */
-    protected T[] elements;
+    protected Object[] elements;
     private int size; // number of current items in list
 
     public ArrayList() {
-        elements =(T[]) new Object[10];
+        elements = new Object[10];
         size = 0;
     }
 
@@ -35,9 +35,9 @@ public class ArrayList<T> implements List<T> {
     }
 
     private void makeRoom() {
-       T[] tempArray= elements;
-       elements =(T[])new Object[elements.length + 10];
-       for(int i=0;i<=tempArray.length - 1;i++){
+       Object[] tempArray= elements;
+       elements =new Object[elements.length + 10];
+       for(int i=0; i <= tempArray.length - 1; i++){
            elements[i]=tempArray[i];
        }
 
@@ -53,7 +53,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean contains(T element) {
-        for(T elementData : elements){
+        for(Object elementData : elements){
             if(elementData != null && elementData.equals(element)){
                 return true;
             }
@@ -115,7 +115,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-        return elements[index];
+        return (T)elements[index];
         }
 
     /**
@@ -136,8 +136,8 @@ public class ArrayList<T> implements List<T> {
             makeRoom();
         }
 
-        T temp=element;
-        T temp2;
+        Object temp=element;
+        Object temp2;
         for(int i=index;i<elements.length;i++){
             temp2 = elements[i];
             elements[i]=temp;
@@ -156,9 +156,9 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T set(int index, T element) {
-        T temp = elements[index];
+        Object temp = elements[index];
         elements[index]=element;
-        return temp;
+        return (T)temp;
     }
 
     /**
@@ -175,13 +175,13 @@ public class ArrayList<T> implements List<T> {
         if(index < 0 || index > size){
             throw new IndexOutOfBoundsException("Index is out of bounds");
         }
-        T temp = elements[index];
+        Object temp = elements[index];
         for(int i=index;i<elements.length-1;i++){
             elements[i]=elements[i+1];
         }
         elements[elements.length-1]=null;
         size--;
-        return temp;
+        return (T)temp;
     }
 
     /**
@@ -197,7 +197,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public int indexOf(T element) {
         int index = 0;
-        for (T elementData : elements) {
+        for (Object elementData : elements) {
             if (elementData.equals(element)) {
                 return index;
             }

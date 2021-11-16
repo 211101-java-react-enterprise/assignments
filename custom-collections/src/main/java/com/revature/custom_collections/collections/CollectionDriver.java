@@ -3,7 +3,6 @@ package com.revature.custom_collections.collections;
 public class CollectionDriver {
 
     public static void main(String[] args) {
-        // TODO: Provide a demonstration of your implemented data structures here.
         ArrayList<String> arr1 = new ArrayList<String>();
 
         System.out.println(arr1.isEmpty());
@@ -48,6 +47,8 @@ public class CollectionDriver {
         }
 
         System.out.println(arr1.size());
+
+        System.out.println(arr1.elements.length);
 
 
 
