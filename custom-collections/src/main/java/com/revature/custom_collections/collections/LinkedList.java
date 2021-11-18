@@ -102,8 +102,12 @@ public class LinkedList<T> implements List<T>, Deque<T> {
                 // Edit node links
                 if (currentNode == head) {
                     head = currentNode.nextNode;
-                } else {
-                    prevNode.nextNode = currentNode.nextNode;
+                }
+                else if(currentNode == tail){
+                        tail = prevNode;
+                    }
+                else {
+                prevNode.nextNode = currentNode.nextNode;
                 }
 
                 // Decrement the size of the list
@@ -218,9 +222,8 @@ public class LinkedList<T> implements List<T>, Deque<T> {
                 //Increment if none of test cases
                 if (insertedintolist == false) {
                     prevNode = currentNode;
-                    if(currentNode.nextNode != null) {
-                        currentNode = currentNode.nextNode;
-                    }
+                    currentNode = currentNode.nextNode;
+
                 }
             }
         }
@@ -279,7 +282,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
             {
                 if (currentNode == tail)
                 {
-                    returnElement = tail;
+                    returnElement = currentNode;
                     prevNode.nextNode = insertingElement;
                     tail = insertingElement;
                 } else {

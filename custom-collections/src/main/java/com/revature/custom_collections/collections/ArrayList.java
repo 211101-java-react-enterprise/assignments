@@ -10,6 +10,10 @@ package com.revature.custom_collections.collections;
  * @param <T> the type of elements maintained by this list
  */
 public class ArrayList<T> implements List<T> {
+    int size;
+    int capacity;
+    T[] thisArray;
+
 
     /**
      * Appends the specified element to the end of this list.
@@ -42,6 +46,10 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean isEmpty() {
+        if (size == 0) {
+            //Check data is also empty
+            return true;
+        }
         return false;
     }
 
@@ -66,7 +74,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**

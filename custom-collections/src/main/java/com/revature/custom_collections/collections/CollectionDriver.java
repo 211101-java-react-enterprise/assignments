@@ -1,5 +1,7 @@
 package com.revature.custom_collections.collections;
 
+import java.util.ArrayList;
+
 public class CollectionDriver {
 
     public static void main(String[] args) {
@@ -13,15 +15,21 @@ public class CollectionDriver {
         testList.add(2, "value 2");
         testList.add(3, "value 3");
 
+        System.out.println(testList);
+
         testList.set(0, "VC0" );
         testList.set(1, "VC1" );
         testList.set(2, "VC2" );
         testList.set(3, "VC3" );
 
+        System.out.println(testList);
+
         testList.remove( 3);
         testList.remove(1);
         testList.remove(0);
         testList.remove(0);
+
+        System.out.println(testList);
 
         testList.add(0, "VC0" );
         testList.add(1, "VC1" );
@@ -32,12 +40,15 @@ public class CollectionDriver {
         testList.set(2, "V2" );
         testList.set(3, "V3" );
 
+        System.out.println(testList);
+
         int locationOfV2 = testList.indexOf("V2");
         int locationOfV0 = testList.indexOf("V0");
         int locationOfV3 = testList.indexOf("V3");
         int locationOfV1 = testList.indexOf("V1");
 
 
+
         testList.add(1, "T1");
         testList.add(2, "T2");
         testList.add(2, "T3");
@@ -56,6 +67,8 @@ public class CollectionDriver {
         testList.add(2, "T3");
         testList.add(3, "T4");
         testList.add(1, "T5");
+
+        System.out.println(testList);
 
         int locationLastV2 = testList.lastIndexOf("V2");
         int locationLastV3 = testList.lastIndexOf("V3");
@@ -63,5 +76,11 @@ public class CollectionDriver {
         int locationLastV1 = testList.lastIndexOf("V1");
         int locationLast = testList.lastIndexOf("T5");
         int locationLast1 = testList.lastIndexOf("T1");
+
+
+
     }
+
+
+
 }
