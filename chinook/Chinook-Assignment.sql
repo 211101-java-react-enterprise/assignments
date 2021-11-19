@@ -54,16 +54,26 @@ where "HireDate" between '2003-06-01' and '2004-03-01';
 
 -- DELETE
 
---delete from "InvoiceLine"
---where "InvoiceId" = (select "InvoiceId" from "Invoice" where "CustomerId" = (select "CustomerId" from "Customer"
---where "FirstName" = 'Robert' and "LastName" = 'Walker'));
---
---delete from "Invoice"
---where "CustomerId" = (select "CustomerId" from "Customer"
---where "FirstName" = 'Robert' and "LastName" = 'Walker');
---
---delete from "Customer"
---where "FirstName" = 'Robert' and "LastName" = 'Walker';
+alter table "InvoiceLine"
+drop constraint "FK_InvoiceLineInvoiceId";
+
+alter table "InvoiceLine"
+add constraint "FK_InvoiceLineInvoiceId"
+foreign key ("InvoiceId")
+references "Invoice"
+on delete cascade;
+
+alter table "Invoice"
+drop constraint "FK_InvoiceCustomerId";
+
+alter table "Invoice"
+add constraint "FK_InvoiceCustomerId"
+foreign key ("CustomerId")
+references "Customer"
+on delete cascade;
+
+delete from "Customer"
+where "FirstName" = 'Robert' and "LastName" = 'Walker';
 
 -- SYSTEM DEFINED FUNCTIONS
 
