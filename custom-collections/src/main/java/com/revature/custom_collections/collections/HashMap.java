@@ -78,7 +78,6 @@ public class HashMap<K, V> implements Map<K, V> {
                     V oldValue = entries[i].getValue();
                     newEntry = new Node<>(hash(key), key, value, null);
                     entries[i + 1] = newEntry;
-                    size++;
                     return oldValue;
                 }
                 else {
@@ -114,12 +113,14 @@ public class HashMap<K, V> implements Map<K, V> {
     @Override
     public V remove(K key) {
         V thisValue = null;
+        boolean wasFound = false;
         for(int i = 0; i < size; i++) {
             K thisKey = entries[i].getKey();
             if(thisKey == null) {
                 if(key == null) {
                     thisValue = entries[i].getValue();
                     entries[i] = null;
+                    wasFound = true;
                     size--;
                 }
                 continue;
@@ -127,12 +128,12 @@ public class HashMap<K, V> implements Map<K, V> {
             if(thisKey.equals(key)) {
                 thisValue = entries[i].getValue();
                 entries[i] = null;
+                wasFound = true;
                 size--;
             }
-            if (thisValue != null) {
+            if (wasFound) {
                 entries[i] = entries[i+1];
             }
-
         }
 
         return thisValue;
@@ -144,13 +145,21 @@ public class HashMap<K, V> implements Map<K, V> {
      * @param key the key whose presence in this map is to be tested
      * @return true if this map contains a mapping for the specified key.
      */
+
     @Override
     public boolean containsKey(K key) {
         if(size == 0) {
             return false;
         }
         for(int i = 0; i < size; i++) {
-            if(entries[i].getKey().equals(key) && entries[i] != null) {
+            K thisKey = entries[i].getKey();
+            if(thisKey == null) {
+                if(key == null) {
+                    return true;
+                }
+                continue;
+            }
+            if(thisKey.equals(key) && entries[i] != null) {
                 return true;
             }
         }
