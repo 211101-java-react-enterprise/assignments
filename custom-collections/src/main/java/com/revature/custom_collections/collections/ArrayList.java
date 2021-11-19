@@ -1,7 +1,10 @@
 package com.revature.custom_collections.collections;
 
+<<<<<<< HEAD
 import java.util.Arrays;
 
+=======
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
 /**
  * Resizable-array implementation of the List interface. Permits all element values,
  * including null. Each ArrayList instance has a capacity. The capacity is the size
@@ -13,9 +16,12 @@ import java.util.Arrays;
  */
 public class ArrayList<T> implements List<T> {
 
+<<<<<<< HEAD
     private T[] array = (T[]) new Object[10];
     private int size = 0;
 
+=======
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
     /**
      * Appends the specified element to the end of this list.
      *
@@ -24,6 +30,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T element) {
+<<<<<<< HEAD
         array[size] = element;
         size++;
 
@@ -35,6 +42,9 @@ public class ArrayList<T> implements List<T> {
             array = newArray;
         }
         return true;
+=======
+        return false;
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
     }
 
     /**
@@ -47,11 +57,14 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean contains(T element) {
+<<<<<<< HEAD
         for (int i = 0; i <= size; i++) {
             if (array[i] == element) {
                 return true;
             }
         }
+=======
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
         return false;
     }
 
@@ -62,9 +75,12 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean isEmpty() {
+<<<<<<< HEAD
         if (size == 0) {
             return true;
         }
+=======
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
         return false;
     }
 
@@ -79,6 +95,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public boolean remove(T element) {
+<<<<<<< HEAD
         for (int i = 0; i <= size; i++) {
             if (array[i] == element) {
                 array[i] = null;
@@ -86,6 +103,8 @@ public class ArrayList<T> implements List<T> {
                 return true;
             }
         }
+=======
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
         return false;
     }
 
@@ -96,7 +115,11 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public int size() {
+<<<<<<< HEAD
         return size;
+=======
+        return 0;
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
     }
 
     /**
@@ -108,10 +131,14 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
+<<<<<<< HEAD
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException();
         }
         return array[index];
+=======
+        return null;
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
     }
 
     /**
@@ -119,12 +146,17 @@ public class ArrayList<T> implements List<T> {
      * the element currently at that position (if any) and any subsequent elements
      * to the right (adds one to their indices).
      *
+<<<<<<< HEAD
      * @param index   index at which the specified element is to be inserted
+=======
+     * @param index index at which the specified element is to be inserted
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
      * @param element element to be inserted
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
      */
     @Override
     public void add(int index, T element) {
+<<<<<<< HEAD
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         }
@@ -135,21 +167,32 @@ public class ArrayList<T> implements List<T> {
         }
         array[index] = element;
         size++;
+=======
+
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
     }
 
     /**
      * Replaces the element at the specified position in this list with the
      * specified element (optional operation).
      *
+<<<<<<< HEAD
      * @param index   index of the element to replace
+=======
+     * @param index index of the element to replace
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
      * @param element element to be stored at the specified position
      * @return the element previously at the specified position
      */
     @Override
     public T set(int index, T element) {
+<<<<<<< HEAD
         T removedElement = array[index];
         array[index] = element;
         return removedElement;
+=======
+        return null;
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
     }
 
     /**
@@ -163,6 +206,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T remove(int index) {
+<<<<<<< HEAD
         T removedElement = null;
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException();
@@ -181,6 +225,9 @@ public class ArrayList<T> implements List<T> {
 
         size--;
         return removedElement;
+=======
+        return null;
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
     }
 
     /**
@@ -191,6 +238,7 @@ public class ArrayList<T> implements List<T> {
      *
      * @param element element to search for
      * @return the index of the first occurrence of the specified element in this list,
+<<<<<<< HEAD
      * or -1 if this list does not contain the element
      */
     @Override
@@ -209,6 +257,13 @@ public class ArrayList<T> implements List<T> {
             }
         }
         return -1;
+=======
+     *         or -1 if this list does not contain the element
+     */
+    @Override
+    public int indexOf(T element) {
+        return 0;
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
     }
 
     /**
@@ -219,6 +274,7 @@ public class ArrayList<T> implements List<T> {
      *
      * @param element element to search for
      * @return the index of the last occurrence of the specified element in this list,
+<<<<<<< HEAD
      * or -1 if this list does not contain the element
      */
     @Override
@@ -249,4 +305,13 @@ public class ArrayList<T> implements List<T> {
         return "ArrayList = " + Arrays.toString(array) +
                 "\nsize = " + size();
     }
+=======
+     *         or -1 if this list does not contain the element
+     */
+    @Override
+    public int lastIndexOf(T element) {
+        return 0;
+    }
+
+>>>>>>> e52f18a04c7decb1699f63e9d024493cedb14212
 }
