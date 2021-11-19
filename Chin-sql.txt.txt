@@ -1,0 +1,65 @@
+
+select * from "Employee" ;
+SELECT * FROM "Employee" e WHERE "LastName" = 'King';
+select * from  "Employee" e where "FirstName" ='Andrew' and "ReportsTo" is NULL;
+-- 2.2
+select * from "Album" a order by "Title" desc ;
+select * from "Customer" order by "FirstName" asc ;
+
+--2.3 
+insert into "Genre" ("GenreId",  "Name") values (26,'Comedy');
+insert into "Genre" ("GenreId",  "Name")  values (27,'World');
+
+insert into "Employee" ("EmployeeId","LastName","FirstName","Title","ReportsTo","BirthDate","HireDate","Address","City","State","Country","PostalCode","Phone","Fax","Email")
+values ('21','West','Tom','SoftWare Engingeer','2',Date'1983-03-08',Date '2010-05-11','12423 empty street','Sterling','VA','US','20166','+1(571)222-0011','+1(571)222-0022','tomwest@chinook.com');
+
+insert into "Employee" ("EmployeeId","LastName","FirstName","Title","ReportsTo","BirthDate","HireDate","Address","City","State","Country","PostalCode","Phone","Fax","Email")
+values ('9','Jerry','Tom','QA Engineer','2',Date'1982-03-11',Date '2012-05-11','12423 full street','Sterling','VA','US','20166','+1(572)999-0011','+1(572)222-2222','tomjerry@chinook.com');
+
+insert into "Customer" ("CustomerId","FirstName","LastName","Company","Address","City","State","Country","PostalCode","Phone","Fax","Email","SupportRepId")
+values ('60','Tom','Jack','Revature','2122 Reston rd','Reston','VA','USA','20157','+1(701)334-0099','+1(203)-000-9800','tomjack@revature.net','3');
+insert into "Customer" ("CustomerId","FirstName","LastName","Company","Address","City","State","Country","PostalCode","Phone","Fax","Email","SupportRepId")
+values ('61','Josh','Boss','Revature','21200 Reston rd','Reston','VA','USA','20157','+1(701)334-0099','+1(203)-111-9800','joshbossk@revature.net','4');
+
+--2.4 UPDATE
+-- Task – Update Aaron Mitchell in Customer table to Robert Walter
+UPDATE "Customer" 
+    SET "FirstName" = 'Robert', "LastName" = 'Walter'
+    WHERE "CustomerId" = '32';
+--Task – Update name of artist “Creedence Clearwater Revival” to “CCR”
+   
+   update "Artist"  set "Name" ='CCR' where "ArtistId" = '76';
+  
+--2.5 LIKE
+
+--Task – Select all invoices with a billing address like “T”
+  select * from "Invoice" i where "BillingAddress" like 'T%';
+-- 2.6 BETWEEN
+
+--Task – Select all invoices that have a total between 15 and 50
+ 
+ select * from "Invoice" i where "Total" >15 and "Total" <50 ;
+
+--Task – Select all employees hired between 1st of June 2003 and 1st of March 2004
+select * from "Employee" e where "HireDate" > '2003-06-01' and "HireDate" <'2004-03-01' ;
+--2.7 DELETE
+
+--Task – Delete a record in Customer table where the name is Robert Walter (There may be constraints that rely on this, find out how to resolve them).
+delete 
+
+-- 3.1 System Defined Functions
+
+--Task – Create a query that leverages a system-defined function to return the current time.
+
+select now();
+
+--Task – Create a query that leverages a system-defined function to return the length of a mediatype from the mediatype table
+
+create or replace function fetch_media_name(req_id in number)
+return varchar2
+is media_name mediatype.name%type;
+begin
+	select name into media_name 
+	from "MediaType"  where mediatypeid = reg_id;
+return meida_name;
+end fetch_media_name;
