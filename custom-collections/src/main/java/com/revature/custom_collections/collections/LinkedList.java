@@ -1,5 +1,7 @@
 package com.revature.custom_collections.collections;
 
+import java.util.Objects;
+
 /**
  * Singly-linked list implementation of the List and Deque interfaces. Permits
  * all elements (including null).
@@ -87,38 +89,28 @@ public class LinkedList<T> implements List<T>, Deque<T> {
         Node<T> prevNode = null;
         Node<T> currentNode = head;
 
-        // If the list is empty, there is no data to remove.
-        // Return false to indicate that remove operation was not performed successfully since the data was not present.
         if (size == 0) {
             return false;
         }
 
-        // Traverse through the list
         for (int i = 0; i < size; i++) {
 
-            // If matching data is found
-            if (currentNode.data == data) {
+            if ((currentNode.data == null && data == null) || (currentNode.data != null && currentNode.data.equals(data))) {
 
-                // Edit node links
                 if (currentNode == head) {
                     head = currentNode.nextNode;
                 } else {
                     prevNode.nextNode = currentNode.nextNode;
                 }
 
-                // Decrement the size of the list
                 size--;
-
-                // Return true to indicate that remove operation was performed successfully.
                 return true;
             }
 
-            // Move references forward to proceed through the
             prevNode = currentNode;
             currentNode = currentNode.nextNode;
         }
 
-        // Return false to indicate that remove operation was not performed successfully since the data was not present.
         return false;
     }
 
@@ -168,6 +160,34 @@ public class LinkedList<T> implements List<T>, Deque<T> {
     @Override
     public void add(int index, T element) {
 
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Node<T> newNode = new Node<>(element);
+
+        if (index == 0) {
+            Node<T> oldHead = head;
+            head = newNode;
+            newNode.nextNode = oldHead;
+        } else if (index == size) {
+            tail.nextNode = newNode;
+        } else {
+            Node<T> prevNode = null;
+            Node<T> runnerNode = head;
+            for (int i = 0; i <= index; i++) {
+                if (i == index) {
+                    prevNode.nextNode = newNode;
+                    newNode.nextNode = runnerNode;
+                    break;
+                }
+                prevNode = runnerNode;
+                runnerNode = runnerNode.nextNode;
+            }
+        }
+
+        size++;
+
     }
 
     /**
@@ -180,7 +200,30 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T set(int index, T element) {
+
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+
+        if (index == 0) {
+            T oldData = head.data;
+            head.data = element;
+            return oldData;
+        }
+
+        Node<T> runnerNode = head;
+        for (int i = 0; i <= index; i++) {
+            if (i == index) {
+                T oldData= runnerNode.data;
+                runnerNode.data = element;
+                return oldData;
+            }
+            runnerNode = runnerNode.nextNode;
+        }
+
         return null;
+
     }
 
     /**
@@ -194,7 +237,34 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T remove(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        T oldData = null;
+        if (index == 0) {
+            oldData = head.data;
+            head = head.nextNode;
+        } else {
+
+            Node<T> prevNode = null;
+            Node<T> currentNode = head;
+            for (int i = 0; i < size; i++) {
+                if (i == index) {
+                    oldData = currentNode.data;
+                    if (currentNode == tail) {
+                        tail = prevNode;
+                    } else {
+                        prevNode.nextNode = currentNode.nextNode;
+                    }
+                    break;
+                }
+                prevNode = currentNode;
+                currentNode = currentNode.nextNode;
+            }
+        }
+        size--;
+        return oldData;
     }
 
     /**
@@ -209,6 +279,19 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public int indexOf(T element) {
+
+        if (size == 0) {
+            return -1;
+        }
+
+        Node<T> currentNode = head;
+        for (int i = 0; i < size; i++) {
+            if ((currentNode.data == null && element == null) || (currentNode.data != null && currentNode.data.equals(element))) {
+                return i;
+            }
+            currentNode = currentNode.nextNode;
+        }
+
         return -1;
     }
 
@@ -224,7 +307,18 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public int lastIndexOf(T element) {
-        return -1;
+        int lastIndex = -1;
+        Node<T> currentNode = head;
+        if (currentNode == null) {
+            return -1;
+        }
+        for (int i = 0; i < size; i++) {
+            if (currentNode.data == null && element == null || Objects.equals(currentNode.data, element)) {
+                lastIndex = i;
+            }
+            currentNode = currentNode.nextNode;
+        }
+        return lastIndex;
     }
 
     /**
@@ -235,7 +329,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void addFirst(T element) {
-
+        add(0, element);
     }
 
     /**
@@ -246,7 +340,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public void addLast(T element) {
-
+        add(element);
     }
 
     /**
@@ -257,7 +351,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T pollFirst() {
-        return null;
+        if (size == 0) return null;
+        T data = head.data;
+        remove(0);
+        return data;
     }
 
     /**
@@ -268,7 +365,10 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T pollLast() {
-        return null;
+        if (size == 0) return null;
+        T data = tail.data;
+        remove(size - 1);
+        return data;
     }
 
     /**
@@ -279,7 +379,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peekFirst() {
-        return null;
+        return head.data;
     }
 
     /**
@@ -290,7 +390,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peekLast() {
-        return null;
+        return tail.data;
     }
 
     /**
@@ -303,7 +403,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T poll() {
-        return null;
+        return pollFirst();
     }
 
     /**
@@ -316,7 +416,7 @@ public class LinkedList<T> implements List<T>, Deque<T> {
      */
     @Override
     public T peek() {
-        return null;
+        return peekFirst();
     }
 
     @Override
