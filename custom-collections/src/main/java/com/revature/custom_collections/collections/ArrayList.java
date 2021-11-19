@@ -167,10 +167,18 @@ public class ArrayList<T> implements List<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException();
         }
-        for (int i = index; i < array.length - 1; i++) {
-            removedElement = array[i];
-            array[i] = array[i + 1];
+
+        if (index == size - 1) {
+            removedElement = array[index];
+        } else {
+            removedElement = array[index];
+            // shift elements left if needed
+//        for (int i = index; i < array.length - 1; i++) {
+//            removedElement = array[i];
+//            array[i] = array[i + 1];
+//        }
         }
+
         size--;
         return removedElement;
     }
@@ -233,12 +241,12 @@ public class ArrayList<T> implements List<T> {
             trimmedAway[i] = array[i];
         }
         return "ArrayList = " + Arrays.toString(trimmedAway) +
-                "\nlength = " + size();
+                "\nsize = " + size();
     }
 
     @Override
     public String toString() {
         return "ArrayList = " + Arrays.toString(array) +
-                "\nlength = " + size();
+                "\nsize = " + size();
     }
 }

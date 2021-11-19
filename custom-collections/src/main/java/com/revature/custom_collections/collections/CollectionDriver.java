@@ -19,13 +19,8 @@ public class CollectionDriver {
         ArrayList<String> arrayList = new ArrayList<>();
         ArrayList<String> arrayList1 = new ArrayList<>();
 
-        /*
-         * Overloaded Add
-         *
-         * Appends the specified element to the end of this list.
-         * Adds the specified element at a specified index and shift remaining elements to the right one.
-         */
-        System.out.println("isEmpty demo");
+        System.out.println("______________________________________________");
+        System.out.println("isEmpty() demo");
         System.out.println("______________________________________________");
         System.out.println(arrayList.toStringTrim());
         System.out.println("is array list empty = " + arrayList.isEmpty());
@@ -141,6 +136,7 @@ public class CollectionDriver {
 
         System.out.println("remove(T element) demo");
         System.out.println("______________________________________________");
+        System.out.println(arrayList.toString());
         System.out.println(arrayList.remove("S"));
         System.out.println(arrayList.toString());
         System.out.println(arrayList.remove("W"));
