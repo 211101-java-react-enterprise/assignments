@@ -29,13 +29,13 @@ Additionally, you will need to build a simple CRUD web application (what objects
 - [ ] Generated Jacoco reports that display coverage metrics
 - [ ] Usage of the java.util.Stream API within your project
 - [ ] Custom ORM source code should be included within the web application as a Maven dependency
-- [ ] Continuous integration pipelines that builds some main branch each project (the ORM and the web app, separately)
 
 ## Bonus Features
 - [ ] Custom ORM supports basic transaction management (begin, commit, savepoint, rollback) 
 - [ ] Custom ORM supports connection pooling
 - [ ] Session-based caching to minimize calls to the database for already retrieved data
 - [ ] Deployment of web application to AWS EC2 (use of AWS Elastic Beanstalk is permitted) 
+- [ ] Continuous integration pipelines that builds some main branch each project (the ORM and the web app, separately)
 
 ## Init Instructions
 - Create a new repository within this organization for your custom ORM (naming convention: `orm_name_p1`; with `orm_name` being replaced by the name of your custom library)
