@@ -7,7 +7,8 @@ With Project 1 out of the way, it's time to work as a part of a larger group to 
 Application must leverage the full stack: 
 - PostGreSQL for persistence 
 - API built with Java 8 and Spring 5
-- UI built with React with TypeScript 
+- UI built with HTML, CSS, and JavaScript
+
 
 Technology framework requirements: 
 - Java API will leverage the Spring Framework 
@@ -33,9 +34,15 @@ Other requirements:
 
 Suggested bonus goals:
 - Secure your Java API using JWTs
+
  
 ## Other Thoughts
+
 The project concepts must be approved by the trainer. Remember to keep user stories clear and unambiguous. Keep in mind that you only have 2 weeks to work on this project so make your MVP something attainable. In addition to your project proposal, teams should also structure themselves with one team leader and a person or persons who fulfill the role of Gitflow manager and DevOps engineer.  Lastly, avoid the temptation to divide work into "API" and "UI", all associates must implement logic on both sides of the stack! 
+
+## Repositories
+
+In order to make your repositories accessible to your AWS accounts via CodePipeline, it is recommended that you create two repositories under your own personal account. One team member can host the repo for the API (while also being the manager of its CI/CD pipeline), and another member can host the repo for the UI (again, managing its CI/CD pipeline).
 
 ## Presentations
 
