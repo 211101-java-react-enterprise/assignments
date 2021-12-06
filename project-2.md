@@ -1,6 +1,6 @@
 # Project 2
 
-With Project 1 out of the way, it's time to work as a part of a larger group to build your a full-stack application leveraging Spring for the application server and HTML, CSS, and JavaScript for UI! The concept and functionality for this application will be up to you are your teammates! More information on the requirements for this project are found below.
+With Project 1 out of the way, it's time to work as a part of a larger group to build a full-stack application leveraging Spring for the application server and HTML, CSS, and JavaScript for UI! The concept and functionality for this application will be up to you are your teammates! More information on the requirements for this project are found below.
 
 ## High-Level Requirements
 
@@ -28,12 +28,12 @@ Other requirements:
 - Java API will have >=80% test (line) coverage for service layer (confirmed by Jacoco coverage report)
 - Java API will leverage Spring's MockMvc for integration/e2e tests of controller endpoints
 - Java API will be adequately documents (Java Docs and web endpoint documentation [Swagger/OpenAPI])
-- React UI will have >= 80% test (line) coverage for all custom components (confirmed by Jest coverage report)
 - At least one external API must be leveraged
 
 
 Suggested bonus goals:
 - Create your UI application using React
+- React UI will have >= 80% test (line) coverage for all custom components (confirmed by Jest coverage report)
 - Secure your Java API using JWTs
 
  
