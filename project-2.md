@@ -33,6 +33,7 @@ Other requirements:
 
 
 Suggested bonus goals:
+- Create your UI application using React
 - Secure your Java API using JWTs
 
  
